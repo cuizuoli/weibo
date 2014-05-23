@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="typeAliasesPackage" value="cn.cuizuoli.weibo.model"/>
+		<property name="typeHandlersPackage" value="cn.cuizuoli.weibo.typehandler"/>
+		<property name="mapperLocations" value="classpath:cn/cuizuoli/weibo/repository/*Repository.xml"/>
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.cuizuoli.weibo.repository"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+		<property name="annotationClass" value="org.springframework.stereotype.Repository"></property>
+	</bean>
+
+</beans>

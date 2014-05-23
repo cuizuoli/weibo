@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cuizuoli.weibo.repository.WeiboTestRepository">
+	<resultMap id="WeiboTestMap" type="WeiboTest">
+		<result column="id" property="id"/>
+		<result column="app_id" property="appId"/>
+		<result column="nickname" property="nickname"/>
+		<result column="status" property="status"/>
+		<result column="creator" property="creator"/>
+		<result column="modifier" property="modifier"/>
+		<result column="create_time" property="createTime"/>
+		<result column="modify_time" property="modifyTime"/>
+	</resultMap>
+	<select id="selectList" parameterType="WeiboTest" resultMap="WeiboTestMap">
+		SELECT
+			id,
+			app_id,
+			nickname,
+			status,
+			creator,
+			modifier,
+			create_time,
+			modify_time
+		FROM weibo_test
+		<where>
+			<if test="appId != null and appId != ''">
+			AND app_id = #{appId}
+			</if>
+			<if test="status != null and status != ''">
+			AND status = #{status}
+			</if>
+		</where>
+	</select>
+	<select id="select" resultMap="WeiboTestMap">
+		SELECT
+			id,
+			app_id,
+			nickname,
+			status,
+			creator,
+			modifier,
+			create_time,
+			modify_time
+		FROM weibo_test
+		WHERE app_id = #{appId}
+		AND nickname = #{nickname} 
+	</select>
+	<insert id="insert" parameterType="WeiboInfo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO weibo_test (
+			app_id,
+			nickname,
+			status,
+			creator,
+			modifier,
+			create_time,
+			modify_time
+		) VALUES (
+			#{appId},
+			#{nickname},
+			#{status},
+			#{creator},
+			#{modifier},
+			NOW(),
+			NOW()
+		)
+	</insert>
+	<update id="update" parameterType="WeiboTest">
+		UPDATE weibo_test
+		SET
+			status = #{status},
+			modifier = #{modifier},
+			modify_time = NOW()
+		WHERE app_id = #{appId}
+		AND nickname = #{nickname}
+	</update>
+	<delete id="delete">
+		DELETE FROM weibo_test
+		WHERE app_id = #{appId}
+		AND nickname = #{nickname}
+	</delete>
+</mapper>

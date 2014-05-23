@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${weibo.jdbc.driverClassName}" />
+		<property name="url" value="${weibo.jdbc.url}" />
+		<property name="username" value="${weibo.jdbc.username}" />
+		<property name="password" value="${weibo.jdbc.password}" />
+		<property name="initialSize" value="${jdbc.initialSize}"></property>
+		<property name="maxActive" value="${jdbc.maxActive}"></property>
+		<property name="maxIdle" value="${jdbc.maxIdle}"></property>
+		<property name="minIdle" value="${jdbc.minIdle}"></property>
+		<property name="defaultAutoCommit" value="${jdbc.defaultAutoCommit}"></property>
+		<property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}"></property>
+		<property name="validationQuery" value="${jdbc.validationQuery}"></property>
+		<property name="testOnBorrow" value="${jdbc.testOnBorrow}"></property>
+		<property name="testOnReturn" value="${jdbc.testOnReturn}"></property>
+		<property name="testWhileIdle" value="${jdbc.testWhileIdle}"></property>
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"></property>
+		<property name="numTestsPerEvictionRun" value="${jdbc.numTestsPerEvictionRun}"></property>
+		<property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"></property>
+	</bean>
+
+	<bean id="slaveDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${weibo.slave.jdbc.driverClassName}" />
+		<property name="url" value="${weibo.slave.jdbc.url}" />
+		<property name="username" value="${weibo.slave.jdbc.username}" />
+		<property name="password" value="${weibo.slave.jdbc.password}" />
+		<property name="initialSize" value="${jdbc.initialSize}"></property>
+		<property name="maxActive" value="${jdbc.maxActive}"></property>
+		<property name="maxIdle" value="${jdbc.maxIdle}"></property>
+		<property name="minIdle" value="${jdbc.minIdle}"></property>
+		<property name="defaultAutoCommit" value="${jdbc.defaultAutoCommit}"></property>
+		<property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}"></property>
+		<property name="validationQuery" value="${jdbc.validationQuery}"></property>
+		<property name="testOnBorrow" value="${jdbc.testOnBorrow}"></property>
+		<property name="testOnReturn" value="${jdbc.testOnReturn}"></property>
+		<property name="testWhileIdle" value="${jdbc.testWhileIdle}"></property>
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"></property>
+		<property name="numTestsPerEvictionRun" value="${jdbc.numTestsPerEvictionRun}"></property>
+		<property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"></property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+</beans>

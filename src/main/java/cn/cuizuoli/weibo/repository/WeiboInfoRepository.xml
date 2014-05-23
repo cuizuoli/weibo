@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cuizuoli.weibo.repository.WeiboInfoRepository">
+	<resultMap id="WeiboInfoMap" type="WeiboInfo">
+		<result column="id" property="id"/>
+		<result column="app_id" property="appId"/>
+		<result column="app_key" property="appKey"/>
+		<result column="app_secret" property="appSecret"/>
+		<result column="redirect_uri" property="redirectUri"/>
+		<result column="app_uri" property="appUri"/>
+		<result column="app_name" property="appName"/>
+		<result column="app_summary" property="appSummary"/>
+		<result column="app_intro" property="appIntro"/>
+		<result column="status" property="status"/>
+		<result column="creator" property="creator"/>
+		<result column="modifier" property="modifier"/>
+		<result column="create_time" property="createTime"/>
+		<result column="modify_time" property="modifyTime"/>
+	</resultMap>
+	<select id="selectList" parameterType="WeiboInfo" resultMap="WeiboInfoMap">
+		SELECT
+			id,
+			app_id,
+			app_key,
+			app_secret,
+			redirect_uri,
+			app_uri,
+			app_name,
+			app_summary,
+			app_intro,
+			status,
+			creator,
+			modifier,
+			create_time,
+			modify_time
+		FROM weibo_info
+		<where>
+			<if test="status != null and status != ''">
+			AND status = #{status}
+			</if>
+		</where>
+	</select>
+	<select id="select" resultMap="WeiboInfoMap">
+		SELECT
+			id,
+			app_id,
+			app_key,
+			app_secret,
+			redirect_uri,
+			app_uri,
+			app_name,
+			app_summary,
+			app_intro,
+			status,
+			creator,
+			modifier,
+			create_time,
+			modify_time
+		FROM weibo_info
+		WHERE app_id = #{appId}
+	</select>
+	<insert id="insert" parameterType="WeiboInfo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO weibo_info (
+			app_id,
+			app_key,
+			app_secret,
+			redirect_uri,
+			app_uri,
+			app_name,
+			app_summary,
+			app_intro,
+			status,
+			creator,
+			modifier,
+			create_time,
+			modify_time
+		) VALUES (
+			#{appId},
+			#{appKey},
+			#{appSecret},
+			#{redirectUri},
+			#{appUri},
+			#{appName},
+			#{appSummary},
+			#{appIntro},
+			#{status},
+			#{creator},
+			#{modifier},
+			NOW(),
+			NOW()
+		)
+	</insert>
+	<update id="update" parameterType="WeiboInfo">
+		UPDATE weibo_info
+		SET
+			<if test="appKey != null and appKey != ''">
+			app_key = #{appKey},
+			</if>
+			<if test="appSecret != null and appSecret != ''">
+			app_secret = #{appSecret},
+			</if>
+			<if test="redirectUri != null and redirectUri != ''">
+			redirect_uri = #{redirectUri},
+			</if>
+			<if test="appUri != null and appUri != ''">
+			app_uri = #{appUri},
+			</if>
+			<if test="appName != null and appName != ''">
+			app_name = #{appName},
+			</if>
+			<if test="appSummary != null and appSummary != ''">
+			app_summary = #{appSummary},
+			</if>
+			<if test="appIntro != null and appIntro != ''">
+			app_intro = #{appIntro},
+			</if>
+			<if test="status != null and status != ''">
+			status = #{status},
+			</if>
+			modifier = #{modifier},
+			modify_time = NOW()
+		WHERE app_id = #{appId}
+	</update>
+	<delete id="delete">
+		DELETE FROM weibo_info
+		WHERE app_id = #{appId}
+	</delete>
+</mapper>
