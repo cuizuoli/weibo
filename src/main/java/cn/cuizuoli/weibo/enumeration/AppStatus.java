@@ -8,6 +8,9 @@
 package cn.cuizuoli.weibo.enumeration;
 
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import cn.cuizuoli.weibo.map.ser.AppStatusJsonSerializer;
 
 /**
  * weibo
@@ -15,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
  * @author cuizuoli
  * @date 2014年5月23日
  */
+@JsonSerialize(using = AppStatusJsonSerializer.class)
 public enum AppStatus {
 	REQUEST("request", "申请"),
 	REQUESTED("requested", "已申请"),

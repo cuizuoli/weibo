@@ -8,6 +8,9 @@
 package cn.cuizuoli.weibo.enumeration;
 
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import cn.cuizuoli.weibo.map.ser.AppTestStatusJsonSerializer;
 
 /**
  * weibo
@@ -15,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
  * @author cuizuoli
  * @date 2014年5月23日
  */
+@JsonSerialize(using = AppTestStatusJsonSerializer.class)
 public enum AppTestStatus {
 	ADD("add", "待添加"),
 	DEL("del", "待删除"),

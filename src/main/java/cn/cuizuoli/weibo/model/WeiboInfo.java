@@ -10,6 +10,7 @@ package cn.cuizuoli.weibo.model;
 import java.util.Date;
 
 import lombok.Data;
+import cn.cuizuoli.weibo.enumeration.AppStatus;
 
 /**
  * weibo
@@ -28,7 +29,7 @@ public class WeiboInfo {
 	private String appName;
 	private String appSummary;
 	private String appIntro;
-	private String status;
+	private AppStatus status;
 	private String creator;
 	private String modifier;
 	private Date createTime;

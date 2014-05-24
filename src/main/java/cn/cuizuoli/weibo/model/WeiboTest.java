@@ -10,6 +10,7 @@ package cn.cuizuoli.weibo.model;
 import java.util.Date;
 
 import lombok.Data;
+import cn.cuizuoli.weibo.enumeration.AppTestStatus;
 
 /**
  * weibo
@@ -22,7 +23,7 @@ public class WeiboTest {
 	private int id;
 	private String appId;
 	private String nickname;
-	private String status;
+	private AppTestStatus status;
 	private String creator;
 	private String modifier;
 	private Date createTime;

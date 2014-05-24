@@ -52,7 +52,7 @@ public class WeiboService {
 	 */
 	@Transactional
 	public void addWeiboInfo(WeiboInfo weiboInfo) {
-		weiboInfo.setStatus(AppStatus.REQUEST.getCode());
+		weiboInfo.setStatus(AppStatus.REQUEST);
 		weiboInfo.setCreator("");
 		weiboInfo.setModifier("");
 		weiboInfoRepository.insert(weiboInfo);
@@ -79,7 +79,7 @@ public class WeiboService {
 			weiboTest = new WeiboTest();
 			weiboTest.setAppId(appId);
 			weiboTest.setNickname(nickname);
-			weiboTest.setStatus(AppTestStatus.ADD.getCode());
+			weiboTest.setStatus(AppTestStatus.ADD);
 			weiboTest.setCreator("");
 			weiboTest.setModifier("");
 			weiboTestRepository.insert(weiboTest);
@@ -95,10 +95,10 @@ public class WeiboService {
 	public void addedWeiboTest(String appId, String nickname) {
 		WeiboTest weiboTest = weiboTestRepository.select(appId, nickname);
 		if (weiboTest != null) {
-			AppTestStatus appTestStatus = AppTestStatus.getObject(weiboTest.getStatus());
+			AppTestStatus appTestStatus = weiboTest.getStatus();
 			switch (appTestStatus) {
 				case ADD: {
-					weiboTest.setStatus(AppTestStatus.ADDED.getCode());
+					weiboTest.setStatus(AppTestStatus.ADDED);
 					weiboTestRepository.update(weiboTest);
 				}
 					break;
@@ -121,7 +121,7 @@ public class WeiboService {
 	public void deleteWeiboTest(String appId, String nickname) {
 		WeiboTest weiboTest = weiboTestRepository.select(appId, nickname);
 		if (weiboTest != null) {
-			AppTestStatus appTestStatus = AppTestStatus.getObject(weiboTest.getStatus());
+			AppTestStatus appTestStatus = weiboTest.getStatus();
 			if (appTestStatus != null) {
 				switch (appTestStatus) {
 					case ADD: {
@@ -129,7 +129,7 @@ public class WeiboService {
 					}
 						break;
 					case ADDED: {
-						weiboTest.setStatus(AppTestStatus.DEL.getCode());
+						weiboTest.setStatus(AppTestStatus.DEL);
 						weiboTestRepository.update(weiboTest);
 					}
 						break;

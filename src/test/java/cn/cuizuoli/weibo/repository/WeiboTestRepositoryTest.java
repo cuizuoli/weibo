@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
-import cn.cuizuoli.weibo.enumeration.AppStatus;
+import cn.cuizuoli.weibo.enumeration.AppTestStatus;
 import cn.cuizuoli.weibo.model.WeiboTest;
 import cn.cuizuoli.weibo.test.AbstractTest;
 
@@ -30,7 +30,7 @@ public class WeiboTestRepositoryTest extends AbstractTest {
 	public void selectList() {
 		WeiboTest weiboTest = new WeiboTest();
 		weiboTest.setAppId("appranking");
-		weiboTest.setStatus(AppStatus.REQUEST.getCode());
+		weiboTest.setStatus(AppTestStatus.ADD);
 		weiboTestRepository.selectList(weiboTest);
 	}
 
@@ -44,7 +44,7 @@ public class WeiboTestRepositoryTest extends AbstractTest {
 		WeiboTest weiboTest = new WeiboTest();
 		weiboTest.setAppId("appranking");
 		weiboTest.setNickname("o风平浪静o");
-		weiboTest.setStatus(AppStatus.REQUEST.getCode());
+		weiboTest.setStatus(AppTestStatus.ADD);
 		weiboTest.setCreator("cuizuoli");
 		weiboTest.setModifier("cuizuoli");
 		weiboTestRepository.insert(weiboTest);
@@ -53,7 +53,7 @@ public class WeiboTestRepositoryTest extends AbstractTest {
 	@Test
 	public void update() {
 		WeiboTest weiboTest = new WeiboTest();
-		weiboTest.setStatus(AppStatus.REQUEST.getCode());
+		weiboTest.setStatus(AppTestStatus.ADD);
 		weiboTest.setModifier("cuizuoli");
 		weiboTestRepository.update(weiboTest);
 	}

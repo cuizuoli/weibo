@@ -50,7 +50,7 @@ public class WeiboServiceTest extends AbstractTest {
 		weiboInfo.setAppSecret("58fb0c16850275585d7a613e0253a650");
 		weiboInfo.setRedirectUri("http://weibo.cuizuoli.cn/web/access_token/appranking/");
 		weiboInfo.setAppUri("http://appranking.weibo.cn/");
-		weiboInfo.setStatus(AppStatus.REQUESTED.getCode());
+		weiboInfo.setStatus(AppStatus.REQUESTED);
 		weiboService.updateWeiboInfo(weiboInfo);
 	}
 

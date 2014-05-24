@@ -29,7 +29,7 @@ public class WeiboInfoRepositoryTest extends AbstractTest {
 	@Test
 	public void selectList() {
 		WeiboInfo weiboInfo = new WeiboInfo();
-		weiboInfo.setStatus(AppStatus.REQUEST.getCode());
+		weiboInfo.setStatus(AppStatus.REQUEST);
 		weiboInfoRepository.selectList(weiboInfo);
 	}
 
@@ -46,7 +46,7 @@ public class WeiboInfoRepositoryTest extends AbstractTest {
 		weiboInfo.setAppName("测试");
 		weiboInfo.setAppSummary("测试");
 		weiboInfo.setAppIntro("测试");
-		weiboInfo.setStatus(AppStatus.REQUEST.getCode());
+		weiboInfo.setStatus(AppStatus.REQUEST);
 		weiboInfo.setCreator("cuizuoli");
 		weiboInfo.setModifier("cuizuoli");
 		weiboInfoRepository.insert(weiboInfo);
@@ -63,7 +63,7 @@ public class WeiboInfoRepositoryTest extends AbstractTest {
 		weiboInfo.setAppName("测试");
 		weiboInfo.setAppSummary("测试");
 		weiboInfo.setAppIntro("测试");
-		weiboInfo.setStatus(AppStatus.REQUEST.getCode());
+		weiboInfo.setStatus(AppStatus.REQUEST);
 		weiboInfo.setModifier("cuizuoli");
 		weiboInfoRepository.update(weiboInfo);
 	}

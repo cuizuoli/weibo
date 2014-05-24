@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>${appName}</title>
 <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="http://js.t.sinajs.cn/t4/enterprise/js/public/appframe/appClient.js"></script>
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/t35/apps/opent/js/frames/client.js"></script>
 </head>
 <body>
 <div class="container">
@@ -20,7 +20,7 @@
 </div>
 <script>
 $(document).ready(function() {
-	App.AuthDialog.show({client_id:'${appKey}',redirect_uri:'${redirectUri}',display:'apponweibo'});
+	App.AuthDialog.show({client_id:'${appKey}',redirect_uri:'${redirectUri}'});
 });
 </script>
 </body>
