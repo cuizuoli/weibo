@@ -7,6 +7,8 @@
 
 package cn.cuizuoli.weibo.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,15 @@ public class WeiboService {
 
 	@Resource
 	private WeiboTestRepository weiboTestRepository;
+
+	/**
+	 * getWeiboInfoList
+	 * @param weiboInfo
+	 * @return
+	 */
+	public List<WeiboInfo> getWeiboInfoList(WeiboInfo weiboInfo) {
+		return weiboInfoRepository.selectList(weiboInfo);
+	}
 
 	/**
 	 * getWeiboInfo

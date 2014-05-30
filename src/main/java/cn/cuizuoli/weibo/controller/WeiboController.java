@@ -33,7 +33,7 @@ public class WeiboController extends AbstractController {
 	private WeiboService weiboService;
 
 	@RequestMapping("")
-	public ModelAndView weibo() {
+	public ModelAndView index() {
 		return new ModelAndView("weibo/index");
 	}
 

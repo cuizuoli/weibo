@@ -7,10 +7,32 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
+	<beans:bean id="userDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<beans:property name="driverClassName" value="${user.jdbc.driverClassName}"/>
+		<beans:property name="url" value="${user.jdbc.url}"/>
+		<beans:property name="username" value="${user.jdbc.username}"/>
+		<beans:property name="password" value="${user.jdbc.password}"/>
+		<beans:property name="initialSize" value="${jdbc.initialSize}"/>
+		<beans:property name="maxActive" value="${jdbc.maxActive}"/>
+		<beans:property name="maxIdle" value="${jdbc.maxIdle}"/>
+		<beans:property name="minIdle" value="${jdbc.minIdle}"/>
+		<beans:property name="defaultAutoCommit" value="${jdbc.defaultAutoCommit}"/>
+		<beans:property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}"/>
+		<beans:property name="validationQuery" value="${jdbc.validationQuery}"/>
+		<beans:property name="testOnBorrow" value="${jdbc.testOnBorrow}"/>
+		<beans:property name="testOnReturn" value="${jdbc.testOnReturn}"/>
+		<beans:property name="testWhileIdle" value="${jdbc.testWhileIdle}"/>
+		<beans:property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"/>
+		<beans:property name="numTestsPerEvictionRun" value="${jdbc.numTestsPerEvictionRun}"/>
+		<beans:property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/>
+	</beans:bean>
+
 	<global-method-security pre-post-annotations="enabled"/>
 
 	<http auto-config="true" access-denied-page="/access_denied">
+		<!-- 
 		<intercept-url pattern="/weibo/**" access="ROLE_WEIBO"/>
+		 -->
 		<intercept-url pattern="/a/**" access="ROLE_ADMIN"/>
 		<session-management invalid-session-url="/spring_security_login">
 			<concurrency-control max-sessions="100" error-if-maximum-exceeded="true"/>
@@ -29,13 +51,13 @@
 	</http>
 
 	<authentication-manager>
-		<authentication-provider user-service-ref="weiboUserService">
+		<authentication-provider user-service-ref="userService">
 			<password-encoder hash="sha"></password-encoder>
 		</authentication-provider>
 	</authentication-manager>
 
-	<beans:bean id="weiboUserService" class="org.springframework.security.provisioning.JdbcUserDetailsManager">
-		<beans:property name="dataSource" ref="dataSource"></beans:property>
+	<beans:bean id="userService" class="org.springframework.security.provisioning.JdbcUserDetailsManager">
+		<beans:property name="dataSource" ref="userDataSource"></beans:property>
 		<beans:property name="enableGroups" value="true"></beans:property>
 	</beans:bean>
 

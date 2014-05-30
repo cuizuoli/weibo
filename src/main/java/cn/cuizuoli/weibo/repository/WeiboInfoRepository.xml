@@ -62,9 +62,15 @@
 	<insert id="insert" parameterType="WeiboInfo" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO weibo_info (
 			app_id,
+			<if test="appKey != null and appKey != ''">
 			app_key,
+			</if>
+			<if test="appSecret != null and appSecret != ''">
 			app_secret,
+			</if>
+			<if test="redirectUri != null and redirectUri != ''">
 			redirect_uri,
+			</if>
 			app_uri,
 			app_name,
 			app_summary,
@@ -76,9 +82,15 @@
 			modify_time
 		) VALUES (
 			#{appId},
+			<if test="appKey != null and appKey != ''">
 			#{appKey},
+			</if>
+			<if test="appSecret != null and appSecret != ''">
 			#{appSecret},
+			</if>
+			<if test="redirectUri != null and redirectUri != ''">
 			#{redirectUri},
+			</if>
 			#{appUri},
 			#{appName},
 			#{appSummary},
