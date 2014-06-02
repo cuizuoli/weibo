@@ -7,6 +7,7 @@
 
 package cn.cuizuoli.weibo.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.cuizuoli.weibo.model.Request;
 import cn.cuizuoli.weibo.model.Requests;
 import cn.cuizuoli.weibo.model.WeiboInfo;
 import cn.cuizuoli.weibo.service.WeiboService;
@@ -43,33 +43,33 @@ public class WeiboApiController extends AbstractController {
 		List<WeiboInfo> weiboInfoList = weiboService.getWeiboInfoList(null);
 		if (weiboInfoList != null && weiboInfoList.size() > 0) {
 			requests = new Requests();
-			requests.setRequest(weiboInfoList);
+			requests.setRequests(weiboInfoList);
 		}
 		return requests;
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "requests/{appId}", method = RequestMethod.GET)
-	public Request getRequest(@PathVariable String appId) {
-		Request request = null;
+	public Requests getRequest(@PathVariable String appId) {
+		Requests requests = null;
 		WeiboInfo weiboInfo = weiboService.getWeiboInfo(appId);
 		if (weiboInfo != null) {
-			request = new Request();
-			request.setRequest(weiboInfo);
+			requests = new Requests();
+			requests.setRequests(Arrays.asList(weiboInfo));
 		}
-		return request;
+		return requests;
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "requests", method = RequestMethod.POST)
-	public void createRequest(@RequestBody Request request) {
-		weiboService.addWeiboInfo(request.getRequest());
+	public void createRequest(@RequestBody Requests requests) {
+		weiboService.batchAddWeiboInfo(requests.getRequests());
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "requests", method = RequestMethod.PUT)
-	public void updateRequest(@RequestBody Request request) {
-		weiboService.updateWeiboInfo(request.getRequest());
+	public void updateRequest(@RequestBody Requests requests) {
+		weiboService.batchUpdateWeiboInfo(requests.getRequests());
 	}
 
 }

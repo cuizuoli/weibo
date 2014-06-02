@@ -13,6 +13,9 @@ import javax.annotation.Resource;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +41,9 @@ public class WeiboService {
 
 	@Resource
 	private WeiboTestRepository weiboTestRepository;
+
+	@Resource
+	private SqlSessionFactory sqlSessionFactory;
 
 	/**
 	 * getWeiboInfoList
@@ -70,12 +76,52 @@ public class WeiboService {
 	}
 
 	/**
+	 * batchAddWeiboInfo
+	 * @param weiboInfoList
+	 */
+	@Transactional
+	public void batchAddWeiboInfo(List<WeiboInfo> weiboInfoList) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
+		WeiboInfoRepository batchWeiboInfoRepository = sqlSession.getMapper(WeiboInfoRepository.class);
+		int i = 1;
+		for (WeiboInfo weiboInfo : weiboInfoList) {
+			batchWeiboInfoRepository.insert(weiboInfo);
+			if (i % 100 == 0) {
+				sqlSession.commit();
+			}
+			i++;
+		}
+		sqlSession.commit();
+		sqlSession.close();
+	}
+
+	/**
 	 * updateWeiboInfo
 	 * @param weiboInfo
 	 */
 	public void updateWeiboInfo(WeiboInfo weiboInfo) {
 		weiboInfo.setModifier("");
 		weiboInfoRepository.update(weiboInfo);
+	}
+
+	/**
+	 * batchUpdateWeiboInfo
+	 * @param weiboInfoList
+	 */
+	@Transactional
+	public void batchUpdateWeiboInfo(List<WeiboInfo> weiboInfoList) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
+		WeiboInfoRepository batchWeiboInfoRepository = sqlSession.getMapper(WeiboInfoRepository.class);
+		int i = 1;
+		for (WeiboInfo weiboInfo : weiboInfoList) {
+			batchWeiboInfoRepository.update(weiboInfo);
+			if (i % 100 == 0) {
+				sqlSession.commit();
+			}
+			i++;
+		}
+		sqlSession.commit();
+		sqlSession.close();
 	}
 
 	/**

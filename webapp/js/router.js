@@ -1,19 +1,20 @@
 define('router', ['Ember', 'WeiboApp'], function (Ember, WeiboApp) {
 	return function () {
 		WeiboApp.Router.map(function () {
-			this.resource('request', function() {
-				this.route('add');
-				this.route('list');
+			this.resource('weibo', {path: '/'}, function() {
+				this.route('request');
+				this.route('requested');
+				this.route('completed');
+				this.route('verify');
+				this.route('square');
+				this.route('release');
 			});
 		});
 
-		WeiboApp.RequestAddRoute = Ember.Route.extend({
+		WeiboApp.WeiboRequestRoute = Ember.Route.extend({
 			model: function() {
 				return {};
 			}
-		});
-
-		WeiboApp.RequestListRoute = Ember.Route.extend({
 		});
 	};
 });

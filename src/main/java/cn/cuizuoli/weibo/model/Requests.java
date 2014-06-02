@@ -19,5 +19,5 @@ import lombok.Data;
  */
 @Data
 public class Requests {
-	private List<WeiboInfo> request;
+	private List<WeiboInfo> requests;
 }

@@ -37,8 +37,8 @@ requirejs(['WeiboApp'], function(WeiboApp) {
 		'router',
 		'models/weibo_info',
 		'models/request',
-		'controllers/request_add_controller'
-	], function (Router, WeiboInfoModel, RequestModel, RequestAddController) {
+		'controllers/weibo_request_controller'
+	], function (Router, WeiboInfoModel, RequestModel, WeiboRequestController) {
 		// Configure router.
 		Router();
 	
@@ -47,7 +47,7 @@ requirejs(['WeiboApp'], function(WeiboApp) {
 		WeiboApp.Request = RequestModel;
 
 		// Configure controllers.
-		WeiboApp.RequestAddController = RequestAddController;
+		WeiboApp.WeiboRequestController = WeiboRequestController;
 
 		// Configure view.
 		//Weibo.EditTodoView = EditTodoView;
