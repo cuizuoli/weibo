@@ -30,9 +30,7 @@
 	<global-method-security pre-post-annotations="enabled"/>
 
 	<http auto-config="true" access-denied-page="/access_denied">
-		<!-- 
 		<intercept-url pattern="/weibo/**" access="ROLE_WEIBO"/>
-		 -->
 		<intercept-url pattern="/a/**" access="ROLE_ADMIN"/>
 		<session-management invalid-session-url="/spring_security_login">
 			<concurrency-control max-sessions="100" error-if-maximum-exceeded="true"/>

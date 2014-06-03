@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,10 +69,10 @@ public class WeiboService {
 	 * @param weiboInfo
 	 */
 	@Transactional
-	public void addWeiboInfo(WeiboInfo weiboInfo) {
+	public void addWeiboInfo(WeiboInfo weiboInfo, User user) {
 		weiboInfo.setStatus(AppStatus.REQUEST);
-		weiboInfo.setCreator("");
-		weiboInfo.setModifier("");
+		weiboInfo.setCreator(user.getUsername());
+		weiboInfo.setModifier(user.getUsername());
 		weiboInfoRepository.insert(weiboInfo);
 	}
 
@@ -80,11 +81,13 @@ public class WeiboService {
 	 * @param weiboInfoList
 	 */
 	@Transactional
-	public void batchAddWeiboInfo(List<WeiboInfo> weiboInfoList) {
+	public void batchAddWeiboInfo(List<WeiboInfo> weiboInfoList, User user) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
 		WeiboInfoRepository batchWeiboInfoRepository = sqlSession.getMapper(WeiboInfoRepository.class);
 		int i = 1;
 		for (WeiboInfo weiboInfo : weiboInfoList) {
+			weiboInfo.setCreator(user.getUsername());
+			weiboInfo.setModifier(user.getUsername());
 			batchWeiboInfoRepository.insert(weiboInfo);
 			if (i % 100 == 0) {
 				sqlSession.commit();
@@ -99,8 +102,8 @@ public class WeiboService {
 	 * updateWeiboInfo
 	 * @param weiboInfo
 	 */
-	public void updateWeiboInfo(WeiboInfo weiboInfo) {
-		weiboInfo.setModifier("");
+	public void updateWeiboInfo(WeiboInfo weiboInfo, User user) {
+		weiboInfo.setModifier(user.getUsername());
 		weiboInfoRepository.update(weiboInfo);
 	}
 
@@ -109,11 +112,12 @@ public class WeiboService {
 	 * @param weiboInfoList
 	 */
 	@Transactional
-	public void batchUpdateWeiboInfo(List<WeiboInfo> weiboInfoList) {
+	public void batchUpdateWeiboInfo(List<WeiboInfo> weiboInfoList, User user) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
 		WeiboInfoRepository batchWeiboInfoRepository = sqlSession.getMapper(WeiboInfoRepository.class);
 		int i = 1;
 		for (WeiboInfo weiboInfo : weiboInfoList) {
+			weiboInfo.setModifier(user.getUsername());
 			batchWeiboInfoRepository.update(weiboInfo);
 			if (i % 100 == 0) {
 				sqlSession.commit();

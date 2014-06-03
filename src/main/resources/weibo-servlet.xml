@@ -22,6 +22,7 @@
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
 			<bean class="org.springframework.mobile.device.DeviceWebArgumentResolver"/>
+			<bean class="cn.cuizuoli.weibo.resolver.UserInfoMethodArgumentResolver"/>
 		</mvc:argument-resolvers>
 		<mvc:message-converters>
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter">

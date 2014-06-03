@@ -7,9 +7,14 @@
 
 package cn.cuizuoli.weibo.service;
 
+import java.util.Arrays;
+
 import javax.annotation.Resource;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.userdetails.User;
 
 import cn.cuizuoli.weibo.enumeration.AppStatus;
 import cn.cuizuoli.weibo.model.WeiboInfo;
@@ -23,8 +28,15 @@ import cn.cuizuoli.weibo.test.AbstractTest;
  */
 public class WeiboServiceTest extends AbstractTest {
 
+	private User user;
+
 	@Resource
 	private WeiboService weiboService;
+
+	@Before
+	public void before() {
+		user = new User("appranking", "123456", Arrays.asList(new GrantedAuthorityImpl("WEIBO_USER")));
+	}
 
 	@Test
 	public void getWeiboInfo() {
@@ -39,7 +51,7 @@ public class WeiboServiceTest extends AbstractTest {
 		weiboInfo.setAppName("测试");
 		weiboInfo.setAppSummary("测试");
 		weiboInfo.setAppIntro("测试");
-		weiboService.addWeiboInfo(weiboInfo);
+		weiboService.addWeiboInfo(weiboInfo, user);
 	}
 
 	@Test
@@ -51,7 +63,7 @@ public class WeiboServiceTest extends AbstractTest {
 		weiboInfo.setRedirectUri("http://weibo.cuizuoli.cn/web/access_token/appranking/");
 		weiboInfo.setAppUri("http://appranking.weibo.cn/");
 		weiboInfo.setStatus(AppStatus.REQUESTED);
-		weiboService.updateWeiboInfo(weiboInfo);
+		weiboService.updateWeiboInfo(weiboInfo, user);
 	}
 
 	@Test

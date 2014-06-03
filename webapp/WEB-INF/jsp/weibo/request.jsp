@@ -40,7 +40,7 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="appId">应用唯一标识符</label>
 					<div class="col-sm-8">
-						{{input action='checkRequest' on='focus-out' class="form-control input-sm" id="appId" type="text" placeholder="请输入应用唯一标识符..." value=appId}}
+						{{input class="form-control input-sm" id="appId" type="text" placeholder="请输入应用唯一标识符..." value=appId}}
 						<span class="help-block">不超过30个字母</span>
 					</div>
 				</div>

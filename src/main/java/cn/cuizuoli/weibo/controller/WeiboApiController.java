@@ -12,6 +12,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.cuizuoli.weibo.model.Request;
 import cn.cuizuoli.weibo.model.Requests;
 import cn.cuizuoli.weibo.model.WeiboInfo;
 import cn.cuizuoli.weibo.service.WeiboService;
@@ -29,6 +33,7 @@ import cn.cuizuoli.weibo.service.WeiboService;
  * @author CN40101
  * @date 2014年5月29日
  */
+@Slf4j
 @Controller
 @RequestMapping("/weibo/api")
 public class WeiboApiController extends AbstractController {
@@ -62,14 +67,14 @@ public class WeiboApiController extends AbstractController {
 
 	@ResponseBody
 	@RequestMapping(value = "requests", method = RequestMethod.POST)
-	public void createRequest(@RequestBody Requests requests) {
-		weiboService.batchAddWeiboInfo(requests.getRequests());
+	public void createRequest(@RequestBody Request request, User user) {
+		weiboService.batchAddWeiboInfo(Arrays.asList(request.getRequest()), user);
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "requests", method = RequestMethod.PUT)
-	public void updateRequest(@RequestBody Requests requests) {
-		weiboService.batchUpdateWeiboInfo(requests.getRequests());
+	public void updateRequest(@RequestBody Request request, User user) {
+		weiboService.batchUpdateWeiboInfo(Arrays.asList(request.getRequest()), user);
 	}
 
 }
