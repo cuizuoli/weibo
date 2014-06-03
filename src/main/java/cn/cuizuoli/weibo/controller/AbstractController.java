@@ -7,10 +7,6 @@
 
 package cn.cuizuoli.weibo.controller;
 
-import org.springframework.security.core.userdetails.User;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
-import cn.cuizuoli.weibo.security.SecurityUtils;
 
 /**
  * weibo
@@ -29,9 +25,4 @@ public class AbstractController {
 	protected final static String VIEWER = "viewer";
 	protected final static String SUB_APPKEY = "sub_appkey";
 	protected final static String TOKEN_STRING = "tokenString";
-
-	@ModelAttribute("user")
-	public User getUser() {
-		return SecurityUtils.getUser();
-	}
 }
