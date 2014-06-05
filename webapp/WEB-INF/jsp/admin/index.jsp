@@ -8,36 +8,34 @@
 <c:import url="/WEB-INF/includes/style.jsp"/>
 </head>
 <body>
-<div class="navbar navbar-inverse" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="javascript:void(0);">微博应用接入系统</a>
-		</div>
-		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="/weibo#/index">应用列表</a></li>
-				
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/weibo#/request">申请应用</a></li>
-			</ul>
-		</div>
-	</div>
-</div>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12">
 			<a href="/weibo#/request">申请</a>
-			<script type="text/x-handlebars" data-template-name="weibo/index">
-			<h1>aaa</h1>
-			</script>
 			<script type="text/x-handlebars" data-template-name="weibo/request">
+			<div class="navbar navbar-default" role="navigation">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">处理流程</a>
+					</div>
+					<div class="collapse navbar-collapse">
+						<ul class="nav navbar-nav">
+							<li class="active">{{#link-to 'weibo.request'}}申请{{/link-to}}</li>
+							<li>{{#link-to 'weibo.requested'}}已申请{{/link-to}}</li>
+							<li>{{#link-to 'weibo.completed'}}开发完成{{/link-to}}</li>
+							<li>{{#link-to 'weibo.verify'}}审核{{/link-to}}</li>
+							<li>{{#link-to 'weibo.square'}}广场{{/link-to}}</li>
+							<li>{{#link-to 'weibo.release'}}上线{{/link-to}}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 			<div id="requestAddDiv">
 			<form class="form-horizontal" role="form">
 				<div class="form-group">

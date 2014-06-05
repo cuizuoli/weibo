@@ -11,6 +11,8 @@ import java.util.Date;
 
 import lombok.Data;
 import cn.cuizuoli.weibo.enumeration.AppStatus;
+import cn.cuizuoli.weibo.enumeration.AppType;
+import cn.cuizuoli.weibo.util.DateUtil;
 
 /**
  * weibo
@@ -20,7 +22,7 @@ import cn.cuizuoli.weibo.enumeration.AppStatus;
  */
 @Data
 public class WeiboInfo {
-	private String id;
+	private int id;
 	private String appId;
 	private String appKey;
 	private String appSecret;
@@ -29,9 +31,18 @@ public class WeiboInfo {
 	private String appName;
 	private String appSummary;
 	private String appIntro;
+	private AppType appType;
 	private AppStatus status;
 	private String creator;
 	private String modifier;
 	private Date createTime;
 	private Date modifyTime;
+
+	public String getModifyTimeFormat() {
+		if (modifyTime != null) {
+			return DateUtil.toDatetime(getModifyTime());
+		} else {
+			return null;
+		}
+	}
 }

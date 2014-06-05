@@ -8,15 +8,11 @@
 package cn.cuizuoli.weibo.controller;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.cuizuoli.weibo.model.WeiboInfo;
 import cn.cuizuoli.weibo.service.WeiboService;
 
 /**
@@ -37,14 +33,9 @@ public class WeiboController extends AbstractController {
 		return new ModelAndView("weibo/index");
 	}
 
-	@RequestMapping(value = "request", method = RequestMethod.GET)
+	@RequestMapping("request")
 	public ModelAndView request() {
 		return new ModelAndView("weibo/request");
-	}
-
-	@RequestMapping(value = "request", method = RequestMethod.POST)
-	public boolean request(HttpServletRequest request, @RequestBody WeiboInfo weiboInfo) {
-		return false;
 	}
 
 }

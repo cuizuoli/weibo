@@ -11,9 +11,11 @@ import java.util.Arrays;
 
 import javax.annotation.Resource;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import cn.cuizuoli.weibo.enumeration.AppStatus;
@@ -26,6 +28,7 @@ import cn.cuizuoli.weibo.test.AbstractTest;
  * @author cuizuoli
  * @date 2014年5月23日
  */
+@Slf4j
 public class WeiboServiceTest extends AbstractTest {
 
 	private User user;
@@ -35,12 +38,13 @@ public class WeiboServiceTest extends AbstractTest {
 
 	@Before
 	public void before() {
-		user = new User("appranking", "123456", Arrays.asList(new GrantedAuthorityImpl("WEIBO_USER")));
+		user = new User("appranking", "123456", Arrays.asList(new SimpleGrantedAuthority("WEIBO_USER")));
 	}
 
 	@Test
 	public void getWeiboInfo() {
-		weiboService.getWeiboInfo("appranking");
+		WeiboInfo weiboInfo = weiboService.getWeiboInfo("appranking");
+		log.info(weiboInfo.toString());
 	}
 
 	@Test
@@ -63,7 +67,7 @@ public class WeiboServiceTest extends AbstractTest {
 		weiboInfo.setRedirectUri("http://weibo.cuizuoli.cn/web/access_token/appranking/");
 		weiboInfo.setAppUri("http://appranking.weibo.cn/");
 		weiboInfo.setStatus(AppStatus.REQUESTED);
-		weiboService.updateWeiboInfo(weiboInfo, user);
+		weiboService.modifyWeiboInfo(weiboInfo, user);
 	}
 
 	@Test

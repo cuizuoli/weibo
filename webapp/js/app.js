@@ -21,8 +21,8 @@ requirejs.config({
 		// lib
 		jQuery: 'lib/jquery-1.11.1.min',
 		Handlebars: 'lib/handlebars-v1.3.0',
-		Ember: 'lib/ember-1.5.1',
-		DS: 'lib/ember-data.min',
+		Ember: 'lib/ember',
+		DS: 'lib/ember-data',
 		Bootstrap: 'lib/bootstrap.min',
 		// App
 		WeiboApp: 'weibo_app'
@@ -30,28 +30,17 @@ requirejs.config({
 });
 
 requirejs(['WeiboApp'], function(WeiboApp) {
-
 	WeiboApp.deferReadiness();
-
 	requirejs([
 		'router',
 		'models/weibo_info',
-		'models/request',
+		'controllers/weibo_list_controller',
 		'controllers/weibo_request_controller'
-	], function (Router, WeiboInfoModel, RequestModel, WeiboRequestController) {
-		// Configure router.
+	], function (Router, WeiboInfoModel, WeiboListController, WeiboRequestController) {
 		Router();
-	
-		// Configure models.
 		WeiboApp.WeiboInfo = WeiboInfoModel;
-		WeiboApp.Request = RequestModel;
-
-		// Configure controllers.
+		WeiboApp.WeiboListController = WeiboListController;
 		WeiboApp.WeiboRequestController = WeiboRequestController;
-
-		// Configure view.
-		//Weibo.EditTodoView = EditTodoView;
-
 		WeiboApp.advanceReadiness();
 	});
 });

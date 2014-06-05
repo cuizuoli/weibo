@@ -71,8 +71,6 @@ public class WeiboService {
 	@Transactional
 	public void addWeiboInfo(WeiboInfo weiboInfo, User user) {
 		weiboInfo.setStatus(AppStatus.REQUEST);
-		weiboInfo.setCreator(user.getUsername());
-		weiboInfo.setModifier(user.getUsername());
 		weiboInfoRepository.insert(weiboInfo);
 	}
 
@@ -99,10 +97,10 @@ public class WeiboService {
 	}
 
 	/**
-	 * updateWeiboInfo
+	 * modifyWeiboInfo
 	 * @param weiboInfo
 	 */
-	public void updateWeiboInfo(WeiboInfo weiboInfo, User user) {
+	public void modifyWeiboInfo(WeiboInfo weiboInfo, User user) {
 		weiboInfo.setModifier(user.getUsername());
 		weiboInfoRepository.update(weiboInfo);
 	}
