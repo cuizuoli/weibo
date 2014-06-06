@@ -28,7 +28,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="javascript:void(0);">微博应用接入系统</a>
+			<a class="navbar-brand" href="/weibo#/">微博应用接入系统</a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
@@ -70,7 +70,7 @@
 		<td>{{appType.name}}</td>
 		<td>{{status.name}}</td>
 		<td>{{modifyTimeFormat}}</td>
-		<td><button id="addBtn" type="button" class="btn btn-primary btn-xs" {{action 'getRequest' appId}}>详细</button></td>
+		<td><button id="addBtn" type="button" class="btn btn-primary btn-xs" {{action 'getRequest' id}}>详细</button></td>
 	</tr>
 	{{/each}}
 	</tbody>

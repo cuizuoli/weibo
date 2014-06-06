@@ -36,7 +36,11 @@ requirejs(['WeiboApp'], function(WeiboApp) {
 		'models/weibo_info',
 		'controllers/weibo_list_controller',
 		'controllers/weibo_request_controller'
-	], function (Router, WeiboInfoModel, WeiboListController, WeiboRequestController) {
+	], function (Router,
+			WeiboInfoModel,
+			WeiboListController,
+			WeiboRequestController,
+			WeiboInfoController) {
 		Router();
 		WeiboApp.WeiboInfo = WeiboInfoModel;
 		WeiboApp.WeiboListController = WeiboListController;

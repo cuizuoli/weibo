@@ -1,20 +1,13 @@
 define('controllers/weibo_list_controller', ['Ember'], function (Ember) {
-	return Ember.ObjectController.extend({
+	return Ember.ArrayController.extend({
 		weiboListActive: 'active',
+		queryParams: ['id'],
+		id: null,
 		actions: {
-			getRequest: function(appId) {
+			getRequest: function(id) {
 				var _this = this;
-				var _store = _this.store;
-				var weiboInfo = _store.find('weiboInfo', appId).then();
-				_this.set('model', weiboInfo);
-				_this.set('controllerName', 'weiboRequest');
-				this.render('weibo/menu', {
-					into: 'weibo',
-					outlet: 'menu'
-				});
-				this.render('weibo/request', {
-					into: 'weibo',
-					outlet: 'content'
+				_this.transitionToRoute('weibo.info', {
+					queryParams: {'id': id}
 				});
 			}
 		}

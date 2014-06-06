@@ -1,8 +1,8 @@
 /*
  * @(#)WeiboApiController.java $version 2014年5月29日
  *
- * Copyright 2014 NHN China. All rights Reserved.
- * NHN China PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright 2014 cuizuoli.cn. All rights Reserved.
+ * cuizuoli.cn PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
 package cn.cuizuoli.weibo.controller;
@@ -29,7 +29,7 @@ import cn.cuizuoli.weibo.service.WeiboService;
 /**
  * weibo
  * cn.cuizuoli.weibo.controller.WeiboApiController.java
- * @author CN40101
+ * @author cuizuoli
  * @date 2014年5月29日
  */
 @Slf4j
@@ -51,9 +51,9 @@ public class WeiboApiController extends AbstractController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "weiboInfos/{appId}", method = RequestMethod.GET)
-	public ModelMap getWeiboInfo(@PathVariable String appId) {
-		WeiboInfo weiboInfo = weiboService.getWeiboInfo(appId);
+	@RequestMapping(value = "weiboInfos/{id}", method = RequestMethod.GET)
+	public ModelMap getWeiboInfo(@PathVariable String id) {
+		WeiboInfo weiboInfo = weiboService.getWeiboInfo(id);
 		if (weiboInfo == null) {
 			weiboInfo = new WeiboInfo();
 		}

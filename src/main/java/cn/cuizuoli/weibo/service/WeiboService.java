@@ -57,11 +57,11 @@ public class WeiboService {
 
 	/**
 	 * getWeiboInfo
-	 * @param appId
+	 * @param id
 	 * @return
 	 */
-	public WeiboInfo getWeiboInfo(String appId) {
-		return weiboInfoRepository.select(appId);
+	public WeiboInfo getWeiboInfo(String id) {
+		return weiboInfoRepository.select(id);
 	}
 
 	/**

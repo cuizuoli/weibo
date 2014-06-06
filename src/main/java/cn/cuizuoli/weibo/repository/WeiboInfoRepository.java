@@ -31,10 +31,10 @@ public interface WeiboInfoRepository {
 
 	/**
 	 * select
-	 * @param appId
+	 * @param id
 	 * @return
 	 */
-	WeiboInfo select(@Param("appId") String appId);
+	WeiboInfo select(@Param("id") String id);
 
 	/**
 	 * insert

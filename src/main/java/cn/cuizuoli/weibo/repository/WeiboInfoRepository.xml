@@ -63,7 +63,7 @@
 			create_time,
 			modify_time
 		FROM weibo_info
-		WHERE app_id = #{appId}
+		WHERE id = #{id}
 	</select>
 	<insert id="insert" parameterType="WeiboInfo" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO weibo_info (

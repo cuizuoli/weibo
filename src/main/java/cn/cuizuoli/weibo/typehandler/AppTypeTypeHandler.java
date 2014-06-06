@@ -1,8 +1,8 @@
 /*
  * @(#)AppTypeTypeHandler.java $version 2014年6月4日
  *
- * Copyright 2014 NHN China. All rights Reserved.
- * NHN China PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright 2014 cuizuoli.cn. All rights Reserved.
+ * cuizuoli.cn PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
 package cn.cuizuoli.weibo.typehandler;
@@ -21,7 +21,7 @@ import cn.cuizuoli.weibo.enumeration.AppType;
 /**
  * weibo
  * cn.cuizuoli.weibo.typehandler.AppTypeTypeHandler.java
- * @author CN40101
+ * @author cuizuoli
  * @date 2014年6月4日
  */
 public class AppTypeTypeHandler extends BaseTypeHandler<AppType> {
