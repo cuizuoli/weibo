@@ -71,6 +71,8 @@ public class WeiboService {
 	@Transactional
 	public void addWeiboInfo(WeiboInfo weiboInfo, User user) {
 		weiboInfo.setStatus(AppStatus.REQUEST);
+		weiboInfo.setCreator(user.getUsername());
+		weiboInfo.setModifier(user.getUsername());
 		weiboInfoRepository.insert(weiboInfo);
 	}
 

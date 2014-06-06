@@ -45,6 +45,9 @@ define('router', ['Ember', 'WeiboApp'], function (Ember, WeiboApp) {
 		});
 
 		WeiboApp.WeiboRequestRoute = Ember.Route.extend({
+			model: function() {
+				return {};
+			},
 			renderTemplate: function() {
 				this.render('weibo/menu', {
 					into: 'weibo',
@@ -80,7 +83,7 @@ define('router', ['Ember', 'WeiboApp'], function (Ember, WeiboApp) {
 					into: 'weibo',
 					outlet: 'menu'
 				});
-				this.render('weibo/request', {
+				this.render('weibo/info', {
 					into: 'weibo',
 					outlet: 'content'
 				});

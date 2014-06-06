@@ -33,9 +33,4 @@ public class WeiboController extends AbstractController {
 		return new ModelAndView("weibo/index");
 	}
 
-	@RequestMapping("request")
-	public ModelAndView request() {
-		return new ModelAndView("weibo/request");
-	}
-
 }

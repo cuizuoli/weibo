@@ -17,5 +17,5 @@ import lombok.Data;
  */
 @Data
 public class WeiboInfos {
-	private WeiboInfo request;
+	private WeiboInfo weiboInfo;
 }

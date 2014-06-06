@@ -37,6 +37,9 @@
 			modify_time
 		FROM weibo_info
 		<where>
+			<if test="appId != null and appId != ''">
+			AND app_id = #{appId}
+			</if>
 			<if test="status != null and status != ''">
 			AND status = #{status}
 			</if>

@@ -42,16 +42,18 @@
 <script type="text/x-handlebars" data-template-name="weibo/list">
 <table class="table table-hover table-bordered table-condensed">
 	<colgroup>
+		<col style="width:5%;">
 		<col style="width:10%;">
 		<col style="width:20%;">
 		<col style="width:10%;">
 		<col style="width:10%;">
 		<col style="width:10%;">
-		<col style="width:20%;">
+		<col style="width:15%;">
 		<col style="width:10%;">
 	</colgroup>
 	<thead>
 	<tr class="active">
+		<th>ID</th>
 		<th>应用ID</th>
 		<th>访问地址</th>
 		<th>名称</th>
@@ -64,13 +66,14 @@
 	<tbody>
 	{{#each model}}
 	<tr>
+		<td>{{id}}</td>
 		<td>{{appId}}</td>
 		<td>{{appUri}}</td>
 		<td>{{appName}}</td>
 		<td>{{appType.name}}</td>
 		<td>{{status.name}}</td>
 		<td>{{modifyTimeFormat}}</td>
-		<td><button id="addBtn" type="button" class="btn btn-primary btn-xs" {{action 'getRequest' id}}>详细</button></td>
+		<td><button type="button" class="btn btn-primary btn-xs" {{action 'getRequest' id}}>详细</button></td>
 	</tr>
 	{{/each}}
 	</tbody>
@@ -79,10 +82,24 @@
 <script type="text/x-handlebars" data-template-name="weibo/request">
 <form class="form-horizontal" role="form">
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="appId">应用唯一标识符</label>
+		<label class="col-sm-2 control-label" for="appId">应用ID</label>
 		<div class="col-sm-3">
-			{{input class="form-control input-sm" id="appId" type="text" placeholder="请输入应用唯一标识符..." value=appId}}
+			{{input class="form-control input-sm" id="appId" type="text" placeholder="请输入应用ID..." value=appId}}
 			<span class="help-block">不超过30个字母</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appType">应用类型</label>
+		<div class="col-sm-10">
+			<label class="checkbox-inline input-sm">
+				<input type="radio" id="appTypeApp" name="appType" value="app" checked> 站内应用
+			</label>
+			<label class="checkbox-inline input-sm">
+				<input type="radio" id="appTypeApp" name="appType" value="web"> 网页应用
+			</label>
+			<label class="checkbox-inline input-sm">
+				<input type="radio" id="appTypeApp" name="appType" value="page"> PAGE应用企业版
+			</label>
 		</div>
 	</div>
 	<div class="form-group">
@@ -115,7 +132,87 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-2">
-			<button id="addBtn" type="button" class="btn btn-primary btn-sm" {{action 'addRequest'}}>提交申请</button>
+			<button type="button" class="btn btn-primary btn-sm" {{action 'addRequest'}}>提交申请</button>
+		</div>
+	</div>
+</form>
+</script>
+<script type="text/x-handlebars" data-template-name="weibo/info">
+<form class="form-horizontal" role="form">
+	<div class="form-group">
+		<label class="col-sm-2 control-label">应用ID</label>
+		<div class="col-sm-3">
+			<p class="form-control-static">{{appId}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">应用类型</label>
+		<div class="col-sm-10">
+			<p class="form-control-static">{{appType.name}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appUri">应用实际地址</label>
+		<div class="col-sm-6">
+			{{input class="form-control input-sm" id="appUri" type="text" placeholder="请输入应用实际地址..." value=appUri}}
+			<span class="help-block">不超过200个字母</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">应用状态</label>
+		<div class="col-sm-10">
+			<p class="form-control-static">{{status.name}}</p>
+		</div>
+	</div>
+	{{#with appKey}}
+	<div class="form-group">
+		<label class="col-sm-2 control-label">App Key</label>
+		<div class="col-sm-10">
+			<p class="form-control-static">{{appKey}}</p>
+		</div>
+	</div>
+	{{/with}}
+	{{#with appSecret}}
+	<div class="form-group">
+		<label class="col-sm-2 control-label">App Secret</label>
+		<div class="col-sm-10">
+			<p class="form-control-static">{{appSecret}}</p>
+		</div>
+	</div>
+	{{/with}}
+	{{#with redirectUri}}
+	<div class="form-group">
+		<label class="col-sm-2 control-label">授权回调页</label>
+		<div class="col-sm-10">
+			<p class="form-control-static">{{redirectUri}}</p>
+		</div>
+	</div>
+	{{/with}}
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appName">应用名称</label>
+		<div class="col-sm-3">
+			{{input class="form-control input-sm" id="appName" type="text" placeholder="请输入应用名称..." value=appName}}
+			<span class="help-block">不超过10个汉字或20个字母</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appSummary">应用简介</label>
+		<div class="col-sm-6">
+			{{input class="form-control input-sm" id="appSummary" type="text" placeholder="请输入应用简介..." value=appSummary}}
+			<span class="help-block">不超过15个汉字或30个字母</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appIntro">应用介绍</label>
+		<div class="col-sm-6">
+			{{textarea class="form-control input-sm" id="appIntro" rows="3" placeholder="请输入应用介绍..." value=appIntro}}
+			<span class="help-block">不超过1000个汉字或2000个字母</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-2">
+			<button type="button" class="btn btn-primary btn-sm" {{action 'addRequest'}}>保存修改</button>
+			<button type="button" class="btn btn-success btn-sm" {{action 'addRequest'}}>开发完成</button>
 		</div>
 	</div>
 </form>

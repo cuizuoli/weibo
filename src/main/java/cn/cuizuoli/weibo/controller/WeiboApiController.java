@@ -42,8 +42,7 @@ public class WeiboApiController extends AbstractController {
 
 	@ResponseBody
 	@RequestMapping(value = "weiboInfos", method = RequestMethod.GET)
-	public ModelMap getWeiboInfos(User user) {
-		WeiboInfo weiboInfo = new WeiboInfo();
+	public ModelMap getWeiboInfos(WeiboInfo weiboInfo, User user) {
 		weiboInfo.setCreator(user.getUsername());
 		List<WeiboInfo> weiboInfoList = weiboService.getWeiboInfoList(weiboInfo);
 		return new ModelMap()
@@ -64,14 +63,14 @@ public class WeiboApiController extends AbstractController {
 	@ResponseBody
 	@RequestMapping(value = "weiboInfos", method = RequestMethod.POST)
 	public boolean addWeiboInfo(@RequestBody WeiboInfos weiboInfos, User user) {
-		weiboService.addWeiboInfo(weiboInfos.getRequest(), user);
+		weiboService.addWeiboInfo(weiboInfos.getWeiboInfo(), user);
 		return true;
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "weiboInfos", method = RequestMethod.PUT)
 	public void modifyWeiboInfo(@RequestBody WeiboInfos weiboInfos, User user) {
-		weiboService.modifyWeiboInfo(weiboInfos.getRequest(), user);
+		weiboService.modifyWeiboInfo(weiboInfos.getWeiboInfo(), user);
 	}
 
 }
