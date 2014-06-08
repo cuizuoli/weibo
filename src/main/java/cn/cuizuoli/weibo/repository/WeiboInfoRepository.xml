@@ -145,10 +145,10 @@
 			</if>
 			modifier = #{modifier},
 			modify_time = NOW()
-		WHERE app_id = #{appId}
+		WHERE id = #{id}
 	</update>
 	<delete id="delete">
 		DELETE FROM weibo_info
-		WHERE app_id = #{appId}
+		WHERE id = #{id}
 	</delete>
 </mapper>

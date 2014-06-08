@@ -51,7 +51,7 @@ public class WeiboApiController extends AbstractController {
 
 	@ResponseBody
 	@RequestMapping(value = "weiboInfos/{id}", method = RequestMethod.GET)
-	public ModelMap getWeiboInfo(@PathVariable String id) {
+	public ModelMap getWeiboInfo(@PathVariable int id) {
 		WeiboInfo weiboInfo = weiboService.getWeiboInfo(id);
 		if (weiboInfo == null) {
 			weiboInfo = new WeiboInfo();
@@ -62,15 +62,22 @@ public class WeiboApiController extends AbstractController {
 
 	@ResponseBody
 	@RequestMapping(value = "weiboInfos", method = RequestMethod.POST)
-	public boolean addWeiboInfo(@RequestBody WeiboInfos weiboInfos, User user) {
-		weiboService.addWeiboInfo(weiboInfos.getWeiboInfo(), user);
-		return true;
+	public ModelMap addWeiboInfo(@RequestBody WeiboInfos weiboInfos, User user) {
+		WeiboInfo weiboInfo = weiboInfos.getWeiboInfo();
+		weiboService.addWeiboInfo(weiboInfo, user);
+		return new ModelMap()
+			.addAttribute("weiboInfo", weiboInfo);
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "weiboInfos", method = RequestMethod.PUT)
-	public void modifyWeiboInfo(@RequestBody WeiboInfos weiboInfos, User user) {
-		weiboService.modifyWeiboInfo(weiboInfos.getWeiboInfo(), user);
+	@RequestMapping(value = "weiboInfos/{id}", method = RequestMethod.PUT)
+	public ModelMap modifyWeiboInfo(@PathVariable int id, @RequestBody WeiboInfos weiboInfos, User user) {
+		WeiboInfo weiboInfo = weiboInfos.getWeiboInfo();
+		weiboInfo.setId(id);
+		weiboService.modifyWeiboInfo(weiboInfo, user);
+		weiboInfo = weiboService.getWeiboInfo(id);
+		return new ModelMap()
+			.addAttribute("weiboInfo", weiboInfo);
 	}
 
 }

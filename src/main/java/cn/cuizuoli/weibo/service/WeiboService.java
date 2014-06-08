@@ -60,8 +60,23 @@ public class WeiboService {
 	 * @param id
 	 * @return
 	 */
-	public WeiboInfo getWeiboInfo(String id) {
+	public WeiboInfo getWeiboInfo(int id) {
 		return weiboInfoRepository.select(id);
+	}
+
+	/**
+	 * getWeiboInfo
+	 * @param appId
+	 * @return
+	 */
+	public WeiboInfo getWeiboInfo(String appId) {
+		WeiboInfo weiboInfo = new WeiboInfo();
+		weiboInfo.setAppId(appId);
+		List<WeiboInfo> weiboInfoList = weiboInfoRepository.selectList(weiboInfo);
+		if (weiboInfoList.size() > 0) {
+			return weiboInfoList.get(0);
+		}
+		return null;
 	}
 
 	/**
@@ -102,6 +117,7 @@ public class WeiboService {
 	 * modifyWeiboInfo
 	 * @param weiboInfo
 	 */
+	@Transactional
 	public void modifyWeiboInfo(WeiboInfo weiboInfo, User user) {
 		weiboInfo.setModifier(user.getUsername());
 		weiboInfoRepository.update(weiboInfo);

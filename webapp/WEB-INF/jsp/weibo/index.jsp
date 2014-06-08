@@ -73,7 +73,7 @@
 		<td>{{appType.name}}</td>
 		<td>{{status.name}}</td>
 		<td>{{modifyTimeFormat}}</td>
-		<td><button type="button" class="btn btn-primary btn-xs" {{action 'getRequest' id}}>详细</button></td>
+		<td><button type="button" class="btn btn-primary btn-xs" {{action 'getRequest' id}}>修改</button></td>
 	</tr>
 	{{/each}}
 	</tbody>
@@ -92,13 +92,13 @@
 		<label class="col-sm-2 control-label" for="appType">应用类型</label>
 		<div class="col-sm-10">
 			<label class="checkbox-inline input-sm">
-				<input type="radio" id="appTypeApp" name="appType" value="app" checked> 站内应用
+				<input type="radio" id="appTypeApp" name="appType" value="app">&nbsp;&nbsp;站内应用
 			</label>
 			<label class="checkbox-inline input-sm">
-				<input type="radio" id="appTypeApp" name="appType" value="web"> 网页应用
+				<input type="radio" id="appTypeApp" name="appType" value="web" checked>&nbsp;&nbsp;网页应用
 			</label>
 			<label class="checkbox-inline input-sm">
-				<input type="radio" id="appTypeApp" name="appType" value="page"> PAGE应用企业版
+				<input type="radio" id="appTypeApp" name="appType" value="page">&nbsp;&nbsp;PAGE应用企业版
 			</label>
 		</div>
 	</div>
@@ -161,7 +161,14 @@
 	<div class="form-group">
 		<label class="col-sm-2 control-label">应用状态</label>
 		<div class="col-sm-10">
-			<p class="form-control-static">{{status.name}}</p>
+			<div class="btn-group btn-group-sm">
+				<button type="button" {{bind-attr class="requestBtnClass"}}>申请</button>
+				<button type="button" {{bind-attr class="requestedBtnClass"}}>已申请</button>
+				<button type="button" {{bind-attr class="completedBtnClass"}}>开发完成</button>
+				<button type="button" {{bind-attr class="verifyBtnClass"}}>审核</button>
+				<button type="button" {{bind-attr class="squareBtnClass"}}>广场</button>
+				<button type="button" {{bind-attr class="releaseBtnClass"}}>上线</button>
+			</div>
 		</div>
 	</div>
 	{{#with appKey}}
@@ -210,9 +217,10 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-2">
-			<button type="button" class="btn btn-primary btn-sm" {{action 'addRequest'}}>保存修改</button>
-			<button type="button" class="btn btn-success btn-sm" {{action 'addRequest'}}>开发完成</button>
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="button" class="btn btn-primary btn-sm" {{action 'saveRequest'}}>保存修改</button>
+			<button type="button" class="btn btn-success btn-sm" {{action 'completedDev'}}>开发完成</button>
+			<button type="button" class="btn btn-info btn-sm" {{action 'listRequest'}}>应用列表</button>
 		</div>
 	</div>
 </form>

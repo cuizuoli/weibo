@@ -35,7 +35,8 @@ requirejs(['WeiboApp'], function(WeiboApp) {
 		'router',
 		'models/weibo_info',
 		'controllers/weibo_list_controller',
-		'controllers/weibo_request_controller'
+		'controllers/weibo_request_controller',
+		'controllers/weibo_info_controller'
 	], function (Router,
 			WeiboInfoModel,
 			WeiboListController,
@@ -45,6 +46,7 @@ requirejs(['WeiboApp'], function(WeiboApp) {
 		WeiboApp.WeiboInfo = WeiboInfoModel;
 		WeiboApp.WeiboListController = WeiboListController;
 		WeiboApp.WeiboRequestController = WeiboRequestController;
+		WeiboApp.WeiboInfoController = WeiboInfoController;
 		WeiboApp.advanceReadiness();
 	});
 });

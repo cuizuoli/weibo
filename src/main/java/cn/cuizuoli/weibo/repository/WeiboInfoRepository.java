@@ -34,7 +34,7 @@ public interface WeiboInfoRepository {
 	 * @param id
 	 * @return
 	 */
-	WeiboInfo select(@Param("id") String id);
+	WeiboInfo select(@Param("id") int id);
 
 	/**
 	 * insert
@@ -50,7 +50,7 @@ public interface WeiboInfoRepository {
 
 	/**
 	 * delete
-	 * @param appId
+	 * @param id
 	 */
-	void delete(@Param("appId") String appId);
+	void delete(@Param("id") int id);
 }
