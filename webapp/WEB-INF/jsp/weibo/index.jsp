@@ -34,6 +34,12 @@
 			<ul class="nav navbar-nav">
 				<li {{bind-attr class="weiboListActive"}}>{{#link-to 'weibo.list'}}应用列表{{/link-to}}</li>
 				<li {{bind-attr class="weiboRequestActive"}}>{{#link-to 'weibo.request'}}申请应用{{/link-to}}</li>
+				<li {{bind-attr class="weiboRequestListActive"}}>{{#link-to 'weibo.request.list'}}申请中应用{{/link-to}}</li>
+				<li {{bind-attr class="weiboRequestedListActive"}}>{{#link-to 'weibo.requested.list'}}待开发应用{{/link-to}}</li>
+				<li {{bind-attr class="weiboCompletedListActive"}}>{{#link-to 'weibo.completed.list'}}开发完了应用{{/link-to}}</li>
+				<li {{bind-attr class="weiboVerifyListActive"}}>{{#link-to 'weibo.verify.list'}}审核应用{{/link-to}}</li>
+				<li {{bind-attr class="weiboSquareListActive"}}>{{#link-to 'weibo.square.list'}}广场应用{{/link-to}}</li>
+				<li {{bind-attr class="weiboSquareListActive"}}>{{#link-to 'weibo.release.list'}}上线应用{{/link-to}}</li>
 			</ul>
 		</div>
 	</div>
@@ -225,7 +231,40 @@
 	</div>
 </form>
 </script>
-<script data-main="/js/app" src="/js/lib/require.js"></script>
+<script type="text/x-handlebars" data-template-name="weibo/request/list">
+<h3>weibo/request/list</h3>
+</script>
+<script type="text/x-handlebars" data-template-name="weibo/requested/list">
+<h3>weibo/requested/list</h3>
+</script>
+<script type="text/x-handlebars" data-template-name="weibo/requested">
+<h3>weibo/requested</h3>
+</script>
+<script type="text/x-handlebars" data-template-name="weibo/completed/list">
+<h3>weibo/completed/list</h3>
+</script>
+<script type="text/x-handlebars" data-template-name="weibo/completed">
+<h3>weibo/completed</h3>
+</script>
+<script type="text/x-handlebars" data-template-name="weibo/verify/list">
+<h3>weibo/verify/list</h3>
+</script>
+<script type="text/x-handlebars" data-template-name="weibo/verify">
+<h3>weibo/verify</h3>
+</script>
+<script type="text/x-handlebars" data-template-name="weibo/square/list">
+<h3>weibo/square/list</h3>
+</script>
+<script type="text/x-handlebars" data-template-name="weibo/square">
+<h3>weibo/square</h3>
+</script>
+<script type="text/x-handlebars" data-template-name="weibo/release/list">
+<h3>weibo/release/list</h3>
+</script>
+<script type="text/x-handlebars" data-template-name="weibo/release">
+<h3>weibo/release</h3>
+</script>
+<script data-main="/js/weibo_app" src="/js/lib/require.js"></script>
 <c:import url="/WEB-INF/includes/loading.jsp"/>
 </body>
 </html>
