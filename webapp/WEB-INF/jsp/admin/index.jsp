@@ -38,6 +38,9 @@
 				<li {{bind-attr class="menuSquareListClass"}}>{{#link-to 'admin.squarelist'}}待上线应用{{/link-to}}</li>
 				<li {{bind-attr class="menuReleaseListClass"}}>{{#link-to 'admin.releaselist'}}上线应用{{/link-to}}</li>
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/logout">退出系统</a></li>
+			</ul>
 		</div>
 	</div>
 </div>
@@ -138,7 +141,7 @@
 	<div class="form-group">
 		<label class="col-sm-2 control-label" for="appIntro">应用介绍</label>
 		<div class="col-sm-6">
-			<p class="form-control-static">{{appIntro}}</p>
+			<pre>{{appIntro}}</pre>
 		</div>
 	</div>
 	<div class="form-group">
@@ -370,7 +373,7 @@
 	<div class="form-group">
 		<label class="col-sm-2 control-label" for="appIntro">应用介绍</label>
 		<div class="col-sm-6">
-			<p class="form-control-static">{{appIntro}}</p>
+			<pre>{{appIntro}}</pre>
 		</div>
 	</div>
 </form>

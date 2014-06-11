@@ -14,7 +14,7 @@ define('controllers/weibo_request_controller', ['Ember'], function (Ember) {
 						weiboInfo.save().then(function() {
 							alert('申请成功！');
 							_this.store.unloadAll('weiboInfo');
-							_this.transitionToRoute('weibo.list');
+							_this.transitionToRoute('weibo.requestlist');
 						});
 					}
 				});

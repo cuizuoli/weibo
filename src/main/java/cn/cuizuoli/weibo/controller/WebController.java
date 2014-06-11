@@ -68,7 +68,7 @@ public class WebController {
 			return new ModelAndView(appUri);
 		} else {
 			String authorizeUri = new StringBuffer()
-				.append("redirect:/oauth/web/authorize/")
+				.append("redirect:/web/authorize/")
 				.append(appId)
 				.toString();
 			return new ModelAndView(authorizeUri);
