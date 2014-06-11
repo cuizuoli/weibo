@@ -32,52 +32,348 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li {{bind-attr class="adminRequestListActive"}}>{{#link-to 'admin.request.list'}}待申请应用{{/link-to}}</li>
-				<li {{bind-attr class="adminRequestedListActive"}}>{{#link-to 'admin.requested.list'}}已申请应用{{/link-to}}</li>
-				<li {{bind-attr class="adminCompletedListActive"}}>{{#link-to 'admin.completed.list'}}待审核应用{{/link-to}}</li>
-				<li {{bind-attr class="adminVerifyListActive"}}>{{#link-to 'admin.verify.list'}}待广场应用{{/link-to}}</li>
-				<li {{bind-attr class="adminSquareListActive"}}>{{#link-to 'admin.square.list'}}待上线应用{{/link-to}}</li>
-				<li {{bind-attr class="adminReleaseListActive"}}>{{#link-to 'admin.release.list'}}上线应用{{/link-to}}</li>
+				<li {{bind-attr class="menuRequestListClass"}}>{{#link-to 'admin.requestlist'}}待申请应用{{/link-to}}</li>
+				<li {{bind-attr class="menuCompletedListClass"}}>{{#link-to 'admin.completedlist'}}待审核应用{{/link-to}}</li>
+				<li {{bind-attr class="menuVerifyListClass"}}>{{#link-to 'admin.verifylist'}}待广场应用{{/link-to}}</li>
+				<li {{bind-attr class="menuSquareListClass"}}>{{#link-to 'admin.squarelist'}}待上线应用{{/link-to}}</li>
+				<li {{bind-attr class="menuReleaseListClass"}}>{{#link-to 'admin.releaselist'}}上线应用{{/link-to}}</li>
 			</ul>
 		</div>
 	</div>
 </div>
 </script>
-<script type="text/x-handlebars" data-template-name="admin/request/list">
-<h3>admin/request/list</h3>
+<script type="text/x-handlebars" data-template-name="admin/requestlist">
+<table class="table table-hover table-bordered table-condensed">
+	<colgroup>
+		<col style="width:5%;">
+		<col style="width:10%;">
+		<col style="width:20%;">
+		<col style="width:10%;">
+		<col style="width:10%;">
+		<col style="width:10%;">
+		<col style="width:15%;">
+		<col style="width:10%;">
+	</colgroup>
+	<thead>
+	<tr class="active">
+		<th>ID</th>
+		<th>应用ID</th>
+		<th>访问地址</th>
+		<th>类型</th>
+		<th>状态</th>
+		<th>申请者</th>
+		<th>更新时间</th>
+		<th>操作</th>
+	</tr>
+	</thead>
+	<tbody>
+	{{#each model}}
+	<tr>
+		<td>{{id}}</td>
+		<td>{{appId}}</td>
+		<td>{{appUri}}</td>
+		<td>{{appType.name}}</td>
+		<td>{{status.name}}</td>
+		<td>{{creator}}</td>
+		<td>{{modifyTimeFormat}}</td>
+		<td><button type="button" class="btn btn-primary btn-xs" {{action 'getRequest' id}}>修改</button></td>
+	</tr>
+	{{/each}}
+	</tbody>
+</table>
 </script>
 <script type="text/x-handlebars" data-template-name="admin/request">
-<h3>admin/request</h3>
+<form class="form-horizontal" role="form">
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appId">应用ID</label>
+		<div class="col-sm-3">
+			<p class="form-control-static">{{appId}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appType">应用类型</label>
+		<div class="col-sm-10">
+			<p class="form-control-static">{{appType.name}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appUri">App Key</label>
+		<div class="col-sm-2">
+			{{input class="form-control input-sm" id="appKey" type="text" placeholder="请输入App Key..." value=appKey}}
+			<span class="help-block">不超过20个字母</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appUri">App Secret</label>
+		<div class="col-sm-3">
+			{{input class="form-control input-sm" id="appSecret" type="text" placeholder="请输入App Secret..." value=appSecret}}
+			<span class="help-block">不超过50个字母</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appUri">Redirect URI</label>
+		<div class="col-sm-6">
+			{{input class="form-control input-sm" id="redirectUri" type="text" placeholder="请输入Redirect URI..." value=redirectUri}}
+			<span class="help-block">不超过100个字母</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appUri">应用实际地址</label>
+		<div class="col-sm-6">
+			<p class="form-control-static">{{appUri}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appName">应用名称</label>
+		<div class="col-sm-3">
+			<p class="form-control-static">{{appName}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appSummary">应用简介</label>
+		<div class="col-sm-6">
+			<p class="form-control-static">{{appSummary}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appIntro">应用介绍</label>
+		<div class="col-sm-6">
+			<p class="form-control-static">{{appIntro}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-2">
+			<button type="button" class="btn btn-primary btn-sm" {{action 'saveRequest'}}>完成申请</button>
+		</div>
+	</div>
+</form>
 </script>
-<script type="text/x-handlebars" data-template-name="admin/requested/list">
-<h3>admin/requested/list</h3>
-</script>
-<script type="text/x-handlebars" data-template-name="admin/requested">
-<h3>admin/requested</h3>
-</script>
-<script type="text/x-handlebars" data-template-name="admin/completed/list">
-<h3>admin/completed/list</h3>
+<script type="text/x-handlebars" data-template-name="admin/completedlist">
+<table class="table table-hover table-bordered table-condensed">
+	<colgroup>
+		<col style="width:5%;">
+		<col style="width:10%;">
+		<col style="width:20%;">
+		<col style="width:10%;">
+		<col style="width:10%;">
+		<col style="width:10%;">
+		<col style="width:15%;">
+		<col style="width:10%;">
+	</colgroup>
+	<thead>
+	<tr class="active">
+		<th>ID</th>
+		<th>应用ID</th>
+		<th>访问地址</th>
+		<th>类型</th>
+		<th>状态</th>
+		<th>申请者</th>
+		<th>更新时间</th>
+		<th>操作</th>
+	</tr>
+	</thead>
+	<tbody>
+	{{#each weiboInfo in model}}
+	<tr>
+		<td>{{weiboInfo.id}}</td>
+		<td>{{weiboInfo.appId}}</td>
+		<td>{{weiboInfo.appUri}}</td>
+		<td>{{weiboInfo.appType.name}}</td>
+		<td>{{weiboInfo.status.name}}</td>
+		<td>{{weiboInfo.creator}}</td>
+		<td>{{weiboInfo.modifyTimeFormat}}</td>
+		<td><button type="button" class="btn btn-primary btn-xs" {{action 'saveVerify' weiboInfo}}>提交审核</button></td>
+	</tr>
+	{{/each}}
+	</tbody>
+</table>
 </script>
 <script type="text/x-handlebars" data-template-name="admin/completed">
 <h3>admin/completed</h3>
 </script>
-<script type="text/x-handlebars" data-template-name="admin/verify/list">
-<h3>admin/verify/list</h3>
+<script type="text/x-handlebars" data-template-name="admin/verifylist">
+<table class="table table-hover table-bordered table-condensed">
+	<colgroup>
+		<col style="width:5%;">
+		<col style="width:10%;">
+		<col style="width:20%;">
+		<col style="width:10%;">
+		<col style="width:10%;">
+		<col style="width:10%;">
+		<col style="width:15%;">
+		<col style="width:10%;">
+	</colgroup>
+	<thead>
+	<tr class="active">
+		<th>ID</th>
+		<th>应用ID</th>
+		<th>访问地址</th>
+		<th>类型</th>
+		<th>状态</th>
+		<th>申请者</th>
+		<th>更新时间</th>
+		<th>操作</th>
+	</tr>
+	</thead>
+	<tbody>
+	{{#each weiboInfo in model}}
+	<tr>
+		<td>{{weiboInfo.id}}</td>
+		<td>{{weiboInfo.appId}}</td>
+		<td>{{weiboInfo.appUri}}</td>
+		<td>{{weiboInfo.appType.name}}</td>
+		<td>{{weiboInfo.status.name}}</td>
+		<td>{{weiboInfo.creator}}</td>
+		<td>{{weiboInfo.modifyTimeFormat}}</td>
+		<td><button type="button" class="btn btn-primary btn-xs" {{action 'saveSquare' weiboInfo}}>申请广场</button></td>
+	</tr>
+	{{/each}}
+	</tbody>
+</table>
 </script>
 <script type="text/x-handlebars" data-template-name="admin/verify">
 <h3>admin/verify</h3>
 </script>
-<script type="text/x-handlebars" data-template-name="admin/square/list">
-<h3>admin/square/list</h3>
+<script type="text/x-handlebars" data-template-name="admin/squarelist">
+<table class="table table-hover table-bordered table-condensed">
+	<colgroup>
+		<col style="width:5%;">
+		<col style="width:10%;">
+		<col style="width:20%;">
+		<col style="width:10%;">
+		<col style="width:10%;">
+		<col style="width:10%;">
+		<col style="width:15%;">
+		<col style="width:10%;">
+	</colgroup>
+	<thead>
+	<tr class="active">
+		<th>ID</th>
+		<th>应用ID</th>
+		<th>访问地址</th>
+		<th>类型</th>
+		<th>状态</th>
+		<th>申请者</th>
+		<th>更新时间</th>
+		<th>操作</th>
+	</tr>
+	</thead>
+	<tbody>
+	{{#each weiboInfo in model}}
+	<tr>
+		<td>{{weiboInfo.id}}</td>
+		<td>{{weiboInfo.appId}}</td>
+		<td>{{weiboInfo.appUri}}</td>
+		<td>{{weiboInfo.appType.name}}</td>
+		<td>{{weiboInfo.status.name}}</td>
+		<td>{{weiboInfo.creator}}</td>
+		<td>{{weiboInfo.modifyTimeFormat}}</td>
+		<td><button type="button" class="btn btn-primary btn-xs" {{action 'saveRelease' weiboInfo}}>申请上线</button></td>
+	</tr>
+	{{/each}}
+	</tbody>
+</table>
 </script>
 <script type="text/x-handlebars" data-template-name="admin/square">
 <h3>admin/square</h3>
 </script>
-<script type="text/x-handlebars" data-template-name="admin/release/list">
-<h3>admin/release/list</h3>
+<script type="text/x-handlebars" data-template-name="admin/releaselist">
+<table class="table table-hover table-bordered table-condensed">
+	<colgroup>
+		<col style="width:5%;">
+		<col style="width:10%;">
+		<col style="width:20%;">
+		<col style="width:10%;">
+		<col style="width:10%;">
+		<col style="width:10%;">
+		<col style="width:15%;">
+		<col style="width:10%;">
+	</colgroup>
+	<thead>
+	<tr class="active">
+		<th>ID</th>
+		<th>应用ID</th>
+		<th>访问地址</th>
+		<th>类型</th>
+		<th>状态</th>
+		<th>申请者</th>
+		<th>更新时间</th>
+		<th>操作</th>
+	</tr>
+	</thead>
+	<tbody>
+	{{#each model}}
+	<tr>
+		<td>{{id}}</td>
+		<td>{{appId}}</td>
+		<td>{{appUri}}</td>
+		<td>{{appType.name}}</td>
+		<td>{{status.name}}</td>
+		<td>{{creator}}</td>
+		<td>{{modifyTimeFormat}}</td>
+		<td><button type="button" class="btn btn-primary btn-xs" {{action 'getRelease' id}}>查看</button></td>
+	</tr>
+	{{/each}}
+	</tbody>
+</table>
 </script>
 <script type="text/x-handlebars" data-template-name="admin/release">
-<h3>admin/release</h3>
+<form class="form-horizontal" role="form">
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appId">应用ID</label>
+		<div class="col-sm-3">
+			<p class="form-control-static">{{appId}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appType">应用类型</label>
+		<div class="col-sm-10">
+			<p class="form-control-static">{{appType.name}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appUri">App Key</label>
+		<div class="col-sm-2">
+			<p class="form-control-static">{{appKey}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appUri">App Secret</label>
+		<div class="col-sm-3">
+			<p class="form-control-static">{{appSecret}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appUri">Redirect URI</label>
+		<div class="col-sm-6">
+			<p class="form-control-static">{{redirectUri}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appUri">应用实际地址</label>
+		<div class="col-sm-6">
+			<p class="form-control-static">{{appUri}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appName">应用名称</label>
+		<div class="col-sm-3">
+			<p class="form-control-static">{{appName}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appSummary">应用简介</label>
+		<div class="col-sm-6">
+			<p class="form-control-static">{{appSummary}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appIntro">应用介绍</label>
+		<div class="col-sm-6">
+			<p class="form-control-static">{{appIntro}}</p>
+		</div>
+	</div>
+</form>
 </script>
 <script data-main="/js/admin_app" src="/js/lib/require.js"></script>
 <c:import url="/WEB-INF/includes/loading.jsp"/>

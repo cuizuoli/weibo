@@ -49,9 +49,33 @@ define('AdminApp', ['Ember', 'DS', 'Bootstrap'], function (Ember, DS, Bootstrap)
 requirejs(['AdminApp'], function(AdminApp) {
 	AdminApp.deferReadiness();
 	requirejs([
-		'admin_router'
-	], function (Router) {
+		'admin_router',
+		'models/weibo_info',
+		'controllers/admin_requestlist_controller',
+		'controllers/admin_request_controller',
+		'controllers/admin_completedlist_controller',
+		'controllers/admin_verifylist_controller',
+		'controllers/admin_squarelist_controller',
+		'controllers/admin_releaselist_controller',
+		'controllers/admin_release_controller'
+	], function (Router,
+			WeiboInfoModel,
+			AdminRequestlistController,
+			AdminRequestController,
+			AdminCompletedlistController,
+			AdminVerifylistController,
+			AdminSquarelistController,
+			AdminReleaselistController,
+			AdminReleaseController) {
 		Router();
+		AdminApp.WeiboInfo = WeiboInfoModel;
+		AdminApp.AdminRequestlistController = AdminRequestlistController;
+		AdminApp.AdminRequestController = AdminRequestController;
+		AdminApp.AdminCompletedlistController = AdminCompletedlistController;
+		AdminApp.AdminVerifylistController = AdminVerifylistController;
+		AdminApp.AdminSquarelistController = AdminSquarelistController;
+		AdminApp.AdminReleaselistController = AdminReleaselistController;
+		AdminApp.AdminReleaseController = AdminReleaseController;
 		AdminApp.advanceReadiness();
 	});
 });

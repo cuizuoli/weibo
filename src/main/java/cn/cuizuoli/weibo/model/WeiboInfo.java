@@ -33,6 +33,7 @@ public class WeiboInfo {
 	private String appIntro;
 	private AppType appType;
 	private AppStatus status;
+	private String statusCode;
 	private String creator;
 	private String modifier;
 	private Date createTime;
@@ -44,5 +45,9 @@ public class WeiboInfo {
 		} else {
 			return null;
 		}
+	}
+
+	public void setStatusCode(String statusCode) {
+		setStatus(AppStatus.getObject(statusCode));
 	}
 }
