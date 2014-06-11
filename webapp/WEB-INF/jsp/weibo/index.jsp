@@ -40,6 +40,9 @@
 				<li {{bind-attr class="menuSquareListClass"}}>{{#link-to 'weibo.squarelist'}}广场应用{{/link-to}}</li>
 				<li {{bind-attr class="menuReleaseListClass"}}>{{#link-to 'weibo.releaselist'}}上线应用{{/link-to}}</li>
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/logout">退出系统</a></li>
+			</ul>
 		</div>
 	</div>
 </div>
