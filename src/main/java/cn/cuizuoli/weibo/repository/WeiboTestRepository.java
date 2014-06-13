@@ -31,11 +31,10 @@ public interface WeiboTestRepository {
 
 	/**
 	 * select
-	 * @param appId
-	 * @param nickname
+	 * @param id
 	 * @return
 	 */
-	WeiboTest select(@Param("appId") String appId, @Param("nickname") String nickname);
+	WeiboTest select(@Param("id") int id);
 
 	/**
 	 * insert
@@ -51,7 +50,7 @@ public interface WeiboTestRepository {
 
 	/**
 	 * delete
-	 * @param appId
+	 * @param id
 	 */
-	void delete(@Param("appId") String appId, @Param("nickname") String nickname);
+	void delete(@Param("id") int id);
 }

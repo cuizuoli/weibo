@@ -51,8 +51,12 @@ requirejs(['AdminApp'], function(AdminApp) {
 	requirejs([
 		'admin_router',
 		'models/weibo_info',
+		'models/weibo_test',
 		'controllers/admin_requestlist_controller',
 		'controllers/admin_request_controller',
+		'controllers/admin_requestedlist_controller',
+		'controllers/admin_requested_controller',
+		'controllers/admin_testlist_controller',
 		'controllers/admin_completedlist_controller',
 		'controllers/admin_verifylist_controller',
 		'controllers/admin_squarelist_controller',
@@ -60,8 +64,12 @@ requirejs(['AdminApp'], function(AdminApp) {
 		'controllers/admin_release_controller'
 	], function (Router,
 			WeiboInfoModel,
+			WeiboTestModel,
 			AdminRequestlistController,
 			AdminRequestController,
+			AdminRequestedlistController,
+			AdminRequestedController,
+			AdminTestlistController,
 			AdminCompletedlistController,
 			AdminVerifylistController,
 			AdminSquarelistController,
@@ -69,8 +77,12 @@ requirejs(['AdminApp'], function(AdminApp) {
 			AdminReleaseController) {
 		Router();
 		AdminApp.WeiboInfo = WeiboInfoModel;
+		AdminApp.WeiboTest = WeiboTestModel;
 		AdminApp.AdminRequestlistController = AdminRequestlistController;
 		AdminApp.AdminRequestController = AdminRequestController;
+		AdminApp.AdminRequestedlistController = AdminRequestedlistController;
+		AdminApp.AdminRequestedController = AdminRequestedController;
+		AdminApp.AdminTestlistController = AdminTestlistController;
 		AdminApp.AdminCompletedlistController = AdminCompletedlistController;
 		AdminApp.AdminVerifylistController = AdminVerifylistController;
 		AdminApp.AdminSquarelistController = AdminSquarelistController;

@@ -29,6 +29,11 @@
 			<if test="status != null and status != ''">
 			AND status = #{status}
 			</if>
+			<if test="statusCodeList != null">
+			<foreach collection="statusCodeList" item="statusCode" open="AND status IN(" close=")" separator=",">
+				#{statusCode}
+			</foreach>
+			</if>
 		</where>
 	</select>
 	<select id="select" resultMap="WeiboTestMap">
@@ -42,10 +47,9 @@
 			create_time,
 			modify_time
 		FROM weibo_test
-		WHERE app_id = #{appId}
-		AND nickname = #{nickname} 
+		WHERE id = #{id}
 	</select>
-	<insert id="insert" parameterType="WeiboInfo" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="WeiboTest" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO weibo_test (
 			app_id,
 			nickname,
@@ -75,7 +79,6 @@
 	</update>
 	<delete id="delete">
 		DELETE FROM weibo_test
-		WHERE app_id = #{appId}
-		AND nickname = #{nickname}
+		WHERE id = #{id}
 	</delete>
 </mapper>

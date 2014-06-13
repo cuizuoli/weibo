@@ -5,6 +5,8 @@ define('admin_router', ['Ember', 'AdminApp'], function (Ember, AdminApp) {
 			this.resource('admin', {path: '/'}, function() {
 				this.route('requestlist');
 				this.route('request');
+				this.route('requestedlist');
+				this.route('requested');
 				this.route('completedlist');
 				this.route('completed');
 				this.route('verifylist');
@@ -13,6 +15,7 @@ define('admin_router', ['Ember', 'AdminApp'], function (Ember, AdminApp) {
 				this.route('square');
 				this.route('releaselist');
 				this.route('release');
+				this.route('testlist');
 			});
 		});
 
@@ -71,6 +74,39 @@ define('admin_router', ['Ember', 'AdminApp'], function (Ember, AdminApp) {
 					outlet: 'menu'
 				});
 				this.render('admin/request', {
+					into: 'admin',
+					outlet: 'content'
+				});
+			}
+		});
+
+		AdminApp.AdminRequestedlistRoute = Ember.Route.extend({
+			model: function() {
+				return this.store.findQuery('weiboInfo', {'statusCode': 'requested'});
+			},
+			renderTemplate: function() {
+				this.render('admin/menu', {
+					into: 'admin',
+					outlet: 'menu'
+				});
+				this.render('admin/requestedlist', {
+					into: 'admin',
+					outlet: 'content'
+				});
+			}
+		});
+
+		AdminApp.AdminRequestedRoute = Ember.Route.extend({
+			model: function(params) {
+				var _this = this;
+				return _this.store.find('weiboInfo', params.queryParams.id);
+			},
+			renderTemplate: function() {
+				this.render('admin/menu', {
+					into: 'admin',
+					outlet: 'menu'
+				});
+				this.render('admin/requested', {
 					into: 'admin',
 					outlet: 'content'
 				});
@@ -193,6 +229,22 @@ define('admin_router', ['Ember', 'AdminApp'], function (Ember, AdminApp) {
 					outlet: 'menu'
 				});
 				this.render('admin/release', {
+					into: 'admin',
+					outlet: 'content'
+				});
+			}
+		});
+
+		AdminApp.AdminTestlistRoute = Ember.Route.extend({
+			model: function() {
+				return this.store.findQuery('weiboTest', {'statusCodes': 'add,del'});
+			},
+			renderTemplate: function() {
+				this.render('admin/menu', {
+					into: 'admin',
+					outlet: 'menu'
+				});
+				this.render('admin/testlist', {
 					into: 'admin',
 					outlet: 'content'
 				});

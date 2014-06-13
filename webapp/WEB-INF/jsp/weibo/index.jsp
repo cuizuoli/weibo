@@ -36,9 +36,6 @@
 				<li {{bind-attr class="menuRequestListClass"}}>{{#link-to 'weibo.requestlist'}}申请中应用{{/link-to}}</li>
 				<li {{bind-attr class="menuRequestedListClass"}}>{{#link-to 'weibo.requestedlist'}}待开发应用{{/link-to}}</li>
 				<li {{bind-attr class="menuCompletedListClass"}}>{{#link-to 'weibo.completedlist'}}开发完了应用{{/link-to}}</li>
-				<li {{bind-attr class="menuVerifyListClass"}}>{{#link-to 'weibo.verifylist'}}审核应用{{/link-to}}</li>
-				<li {{bind-attr class="menuSquareListClass"}}>{{#link-to 'weibo.squarelist'}}广场应用{{/link-to}}</li>
-				<li {{bind-attr class="menuReleaseListClass"}}>{{#link-to 'weibo.releaselist'}}上线应用{{/link-to}}</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/logout">退出系统</a></li>
@@ -178,7 +175,7 @@
 		<td>{{appType.name}}</td>
 		<td>{{status.name}}</td>
 		<td>{{modifyTimeFormat}}</td>
-		<td><button type="button" class="btn btn-primary btn-xs" {{action 'getRequest' id}}>修改</button></td>
+		<td><button type="button" class="btn btn-primary btn-xs" {{action 'getRequested' id}}>修改</button></td>
 	</tr>
 	{{/each}}
 	</tbody>
@@ -227,24 +224,109 @@
 		</div>
 	</div>
 	<div class="form-group">
+		<label class="col-sm-2 control-label" for="officialId">官方运营帐号ID</label>
+		<div class="col-sm-6">
+			{{input class="form-control input-sm" id="officialId" rows="3" placeholder="请输入官方运营帐号ID..." value=officialId}}
+			<span class="help-block">不超过20个字母</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="officialPassword">官方运营帐号密码</label>
+		<div class="col-sm-6">
+			{{input class="form-control input-sm" id="officialPassword" rows="3" placeholder="请输入官方运营帐号密码..." value=officialPassword}}
+			<span class="help-block">不超过50个字母</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="icon16">应用图标16*16地址</label>
+		<div class="col-sm-6">
+			{{input class="form-control input-sm" id="icon16" rows="3" placeholder="请输入应用图标16*16地址..." value=icon16}}
+			<span class="help-block">16*16，2M以内，支持PNG、JPG</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="icon80">应用图标80*80地址</label>
+		<div class="col-sm-6">
+			{{input class="form-control input-sm" id="icon80" rows="3" placeholder="请输入应用图标80*80地址..." value=icon80}}
+			<span class="help-block">16*16，2M以内，支持PNG、JPG</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="icon120">应用图标120*120地址</label>
+		<div class="col-sm-6">
+			{{input class="form-control input-sm" id="icon120" rows="3" placeholder="请输入应用图标120*120地址..." value=icon120}}
+			<span class="help-block">16*16，2M以内，支持PNG、JPG</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="preview01">应用介绍图片地址</label>
+		<div class="col-sm-6">
+			{{input class="form-control input-sm" id="preview01" rows="3" placeholder="请输入应用介绍图片01地址..." value=preview01}}
+		</div>
+		<div class="col-sm-offset-2 col-sm-6">
+			{{input class="form-control input-sm" id="preview02" rows="3" placeholder="请输入应用介绍图片02地址..." value=preview02}}
+		</div>
+		<div class="col-sm-offset-2 col-sm-6">
+			{{input class="form-control input-sm" id="preview03" rows="3" placeholder="请输入应用介绍图片03地址..." value=preview03}}
+		</div>
+		<div class="col-sm-offset-2 col-sm-6">
+			{{input class="form-control input-sm" id="preview04" rows="3" placeholder="请输入应用介绍图片04地址..." value=preview04}}
+			<span class="help-block">2M以内，支持PNG、JPG 高：300px 宽：450px；</span>
+		</div>
+	</div>
+	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
 			<button type="button" class="btn btn-primary btn-sm" {{action 'saveRequested'}}>保存信息</button>
 			<button type="button" class="btn btn-primary btn-sm" {{action 'saveCompleted'}}>开发完成</button>
 		</div>
 	</div>
 </form>
+<div class="page-header">
+	<h3>应用开发测试帐号列表</h3>
+</div>
+<form class="form-inline" role="form">
+	<div class="form-group">
+		<label class="sr-only" for="nickname">微博昵称</label>
+		<input class="form-control input-sm" id="nickname" type="text" plackholder="请输入测试的微博昵称...">
+	</div>
+	<button class="btn btn-sm btn-primary" type="submit" {{action 'addWeiboTest'}}>添加测试帐号</button>
+</form>
+<table class="table table-hover table-bordered table-condensed">
+	<colgroup>
+		<col style="width:5%;">
+		<col style="width:40%;">
+		<col style="width:20%;">
+		<col style="width:15%;">
+		<col style="width:10%;">
+	</colgroup>
+	<thead>
+	<tr class="active">
+		<th>ID</th>
+		<th>昵称</th>
+		<th>状态</th>
+		<th>更新时间</th>
+		<th>操作</th>
+	</tr>
+	</thead>
+	<tbody>
+	{{#each weiboTest in weiboTests}}
+	<tr>
+		<td>{{weiboTest.id}}</td>
+		<td>{{weiboTest.nickname}}</td>
+		<td>{{weiboTest.status.name}}</td>
+		<td>{{weiboTest.modifyTimeFormat}}</td>
+		<td>
+			{{#if weiboTest.isShowDelete}}
+			<button type="button" class="btn btn-primary btn-xs" {{action 'deleteWeiboTest' weiboTest}}>删除</button>
+			{{/if}}
+		</td>
+	</tr>
+	{{/each}}
+	</tbody>
+</table>
 </script>
 <script type="text/x-handlebars" data-template-name="weibo/completed">
 <h3>weibo/completed</h3>
-</script>
-<script type="text/x-handlebars" data-template-name="weibo/verify">
-<h3>weibo/verify</h3>
-</script>
-<script type="text/x-handlebars" data-template-name="weibo/square">
-<h3>weibo/square</h3>
-</script>
-<script type="text/x-handlebars" data-template-name="weibo/release">
-<h3>weibo/release</h3>
 </script>
 <script data-main="/js/weibo_app" src="/js/lib/require.js"></script>
 <c:import url="/WEB-INF/includes/loading.jsp"/>

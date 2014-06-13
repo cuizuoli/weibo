@@ -51,26 +51,23 @@ requirejs(['WeiboApp'], function(WeiboApp) {
 	requirejs([
 		'weibo_router',
 		'models/weibo_info',
+		'models/weibo_test',
 		'controllers/weibo_requestlist_controller',
 		'controllers/weibo_request_controller',
 		'controllers/weibo_requestedlist_controller',
 		'controllers/weibo_requested_controller',
-		'controllers/weibo_completedlist_controller',
-		'controllers/weibo_verifylist_controller',
-		'controllers/weibo_squarelist_controller',
-		'controllers/weibo_releaselist_controller'
+		'controllers/weibo_completedlist_controller'
 	], function (Router,
 			WeiboInfoModel,
+			WeiboTestModel,
 			WeiboRequestlistController,
 			WeiboRequestController,
 			WeiboRequestedlistController,
 			WeiboRequestedController,
-			WeiboCompletedlistController,
-			WeiboVerifylistController,
-			WeiboSquarelistController,
-			WeiboReleaselistController) {
+			WeiboCompletedlistController) {
 		Router();
 		WeiboApp.WeiboInfo = WeiboInfoModel;
+		WeiboApp.WeiboTest = WeiboTestModel;
 		// request.
 		WeiboApp.WeiboRequestlistController = WeiboRequestlistController;
 		WeiboApp.WeiboRequestController = WeiboRequestController;
@@ -78,9 +75,6 @@ requirejs(['WeiboApp'], function(WeiboApp) {
 		WeiboApp.WeiboRequestedlistController = WeiboRequestedlistController;
 		WeiboApp.WeiboRequestedController = WeiboRequestedController;
 		WeiboApp.WeiboCompletedlistController = WeiboCompletedlistController;
-		WeiboApp.WeiboVerifylistController = WeiboVerifylistController;
-		WeiboApp.WeiboSquarelistController = WeiboSquarelistController;
-		WeiboApp.WeiboReleaselistController = WeiboReleaselistController;
 		WeiboApp.advanceReadiness();
 	});
 });

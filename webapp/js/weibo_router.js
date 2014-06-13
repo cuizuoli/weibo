@@ -9,12 +9,6 @@ define('weibo_router', ['Ember', 'WeiboApp'], function (Ember, WeiboApp) {
 				this.route('requested');
 				this.route('completedlist');
 				this.route('completed');
-				this.route('verifylist');
-				this.route('verify');
-				this.route('squarelist');
-				this.route('square');
-				this.route('releaselist');
-				this.route('release');
 			});
 		});
 
@@ -94,7 +88,8 @@ define('weibo_router', ['Ember', 'WeiboApp'], function (Ember, WeiboApp) {
 
 		WeiboApp.WeiboRequestedRoute = Ember.Route.extend({
 			model: function(params) {
-				return this.store.find('weiboInfo', params.queryParams.id);
+				var _this = this;
+				return _this.store.find('weiboInfo', params.queryParams.id);
 			},
 			renderTemplate: function() {
 				this.render('weibo/menu', {
@@ -110,7 +105,7 @@ define('weibo_router', ['Ember', 'WeiboApp'], function (Ember, WeiboApp) {
 
 		WeiboApp.WeiboCompletedlistRoute = Ember.Route.extend({
 			model: function() {
-				return this.store.findQuery('weiboInfo', {'statusCode': 'completed'});
+				return this.store.findQuery('weiboInfo', {'statusCodes': 'completed,verify,square,release'});
 			},
 			renderTemplate: function() {
 				this.render('weibo/menu', {
@@ -131,93 +126,6 @@ define('weibo_router', ['Ember', 'WeiboApp'], function (Ember, WeiboApp) {
 					outlet: 'menu'
 				});
 				this.render('weibo/completed', {
-					into: 'weibo',
-					outlet: 'content'
-				});
-			}
-		});
-
-		WeiboApp.WeiboVerifylistRoute = Ember.Route.extend({
-			model: function() {
-				return this.store.findQuery('weiboInfo', {'statusCode': 'verify'});
-			},
-			renderTemplate: function() {
-				this.render('weibo/menu', {
-					into: 'weibo',
-					outlet: 'menu'
-				});
-				this.render('weibo/list', {
-					into: 'weibo',
-					outlet: 'content'
-				});
-			}
-		});
-
-		WeiboApp.WeiboVerifyRoute = Ember.Route.extend({
-			renderTemplate: function() {
-				this.render('weibo/menu', {
-					into: 'weibo',
-					outlet: 'menu'
-				});
-				this.render('weibo/verify', {
-					into: 'weibo',
-					outlet: 'content'
-				});
-			}
-		});
-
-		WeiboApp.WeiboSquarelistRoute = Ember.Route.extend({
-			model: function() {
-				return this.store.findQuery('weiboInfo', {'statusCode': 'square'});
-			},
-			renderTemplate: function() {
-				this.render('weibo/menu', {
-					into: 'weibo',
-					outlet: 'menu'
-				});
-				this.render('weibo/list', {
-					into: 'weibo',
-					outlet: 'content'
-				});
-			}
-		});
-
-		WeiboApp.WeiboSquareRoute = Ember.Route.extend({
-			renderTemplate: function() {
-				this.render('weibo/menu', {
-					into: 'weibo',
-					outlet: 'menu'
-				});
-				this.render('weibo/square', {
-					into: 'weibo',
-					outlet: 'content'
-				});
-			}
-		});
-
-		WeiboApp.WeiboReleaselistRoute = Ember.Route.extend({
-			model: function() {
-				return this.store.findQuery('weiboInfo', {'statusCode': 'release'});
-			},
-			renderTemplate: function() {
-				this.render('weibo/menu', {
-					into: 'weibo',
-					outlet: 'menu'
-				});
-				this.render('weibo/list', {
-					into: 'weibo',
-					outlet: 'content'
-				});
-			}
-		});
-
-		WeiboApp.WeiboReleaseRoute = Ember.Route.extend({
-			renderTemplate: function() {
-				this.render('weibo/menu', {
-					into: 'weibo',
-					outlet: 'menu'
-				});
-				this.render('weibo/release', {
 					into: 'weibo',
 					outlet: 'content'
 				});

@@ -23,7 +23,7 @@ import cn.cuizuoli.weibo.service.WeiboService;
 
 import com.weibo.api.OAuth2;
 import com.weibo.api.Users;
-import com.weibo.model.ProfessionalTokenInfo;
+import com.weibo.model.PageTokenInfo;
 
 /**
  * weibo
@@ -62,11 +62,12 @@ public class AppController extends AbstractController {
 						.addObject("redirectUri", weiboInfo.getRedirectUri())
 						.addObject("appName", weiboInfo.getAppName());
 				} else {
-					ProfessionalTokenInfo tokenInfo = oAuth2.parseSignedRequest(signedRequest, weiboInfo.getAppSecret());
+					PageTokenInfo tokenInfo = oAuth2.parsePageSignedRequest(signedRequest, weiboInfo.getAppSecret());
 					if (tokenInfo != null) {
 						accessToken = tokenInfo.getOauthToken();
 						userId = tokenInfo.getUserId();
-					} else {
+					}
+					if (StringUtils.isEmpty(accessToken)) {
 						return new ModelAndView(APP_LOGIN)
 							.addObject("appKey", weiboInfo.getAppKey())
 							.addObject("redirectUri", weiboInfo.getRedirectUri())

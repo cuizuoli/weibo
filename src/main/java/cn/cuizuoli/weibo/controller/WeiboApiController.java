@@ -22,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.cuizuoli.weibo.enumeration.AppTestStatus;
 import cn.cuizuoli.weibo.model.WeiboInfo;
 import cn.cuizuoli.weibo.model.WeiboInfos;
+import cn.cuizuoli.weibo.model.WeiboTest;
+import cn.cuizuoli.weibo.model.WeiboTests;
 import cn.cuizuoli.weibo.service.WeiboService;
 
 /**
@@ -78,6 +81,38 @@ public class WeiboApiController extends AbstractController {
 		weiboInfo = weiboService.getWeiboInfo(id);
 		return new ModelMap()
 			.addAttribute("weiboInfo", weiboInfo);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "weiboTests", method = RequestMethod.GET)
+	public ModelMap getWeiboInfos(WeiboTest weiboTest, User user) {
+		weiboTest.setCreator(user.getUsername());
+		List<WeiboTest> weiboTestList = weiboService.getWeiboTestList(weiboTest);
+		return new ModelMap()
+			.addAttribute("weiboTests", weiboTestList);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "weiboTests", method = RequestMethod.POST)
+	public ModelMap addWeiboTest(@RequestBody WeiboTests weiboTests, User user) {
+		WeiboTest weiboTest = weiboTests.getWeiboTest();
+		weiboService.addWeiboTest(weiboTest, user);
+		return new ModelMap()
+			.addAttribute("weiboTest", weiboTest);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "weiboTests/{id}", method = RequestMethod.PUT)
+	public ModelMap modifyWeiboTest(@PathVariable int id, @RequestBody WeiboTests weiboTests, User user) {
+		WeiboTest weiboTest = weiboTests.getWeiboTest();
+		weiboTest.setId(id);
+		AppTestStatus status = weiboTest.getStatus();
+		if (status == AppTestStatus.DEL) {
+			weiboService.deleteWeiboTest(weiboTest);
+		}
+		weiboTest = weiboService.getWeiboTest(weiboTest.getId());
+		return new ModelMap()
+			.addAttribute("weiboTest", weiboTest);
 	}
 
 }

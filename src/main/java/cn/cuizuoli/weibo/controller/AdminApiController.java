@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.cuizuoli.weibo.enumeration.AppTestStatus;
 import cn.cuizuoli.weibo.model.WeiboInfo;
 import cn.cuizuoli.weibo.model.WeiboInfos;
+import cn.cuizuoli.weibo.model.WeiboTest;
+import cn.cuizuoli.weibo.model.WeiboTests;
 import cn.cuizuoli.weibo.service.WeiboService;
 
 /**
@@ -57,15 +60,6 @@ public class AdminApiController extends AbstractController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "weiboInfos", method = RequestMethod.POST)
-	public ModelMap addWeiboInfo(@RequestBody WeiboInfos weiboInfos, User user) {
-		WeiboInfo weiboInfo = weiboInfos.getWeiboInfo();
-		weiboService.addWeiboInfo(weiboInfo, user);
-		return new ModelMap()
-			.addAttribute("weiboInfo", weiboInfo);
-	}
-
-	@ResponseBody
 	@RequestMapping(value = "weiboInfos/{id}", method = RequestMethod.PUT)
 	public ModelMap modifyWeiboInfo(@PathVariable int id, @RequestBody WeiboInfos weiboInfos, User user) {
 		WeiboInfo weiboInfo = weiboInfos.getWeiboInfo();
@@ -74,6 +68,30 @@ public class AdminApiController extends AbstractController {
 		weiboInfo = weiboService.getWeiboInfo(id);
 		return new ModelMap()
 			.addAttribute("weiboInfo", weiboInfo);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "weiboTests", method = RequestMethod.GET)
+	public ModelMap getWeiboInfos(WeiboTest weiboTest) {
+		List<WeiboTest> weiboTestList = weiboService.getWeiboTestList(weiboTest);
+		return new ModelMap()
+			.addAttribute("weiboTests", weiboTestList);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "weiboTests/{id}", method = RequestMethod.PUT)
+	public ModelMap modifyWeiboTest(@PathVariable int id, @RequestBody WeiboTests weiboTests, User user) {
+		WeiboTest weiboTest = weiboTests.getWeiboTest();
+		weiboTest.setId(id);
+		AppTestStatus status = weiboTest.getStatus();
+		if (status == AppTestStatus.ADDED) {
+			weiboService.addedWeiboTest(weiboTest);
+		} else if (status == AppTestStatus.DEL) {
+			weiboService.deleteWeiboTest(weiboTest);
+		}
+		weiboTest = weiboService.getWeiboTest(weiboTest.getId());
+		return new ModelMap()
+			.addAttribute("weiboTest", weiboTest);
 	}
 
 }

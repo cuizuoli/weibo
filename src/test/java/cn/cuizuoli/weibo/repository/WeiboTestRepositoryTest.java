@@ -36,7 +36,7 @@ public class WeiboTestRepositoryTest extends AbstractTest {
 
 	@Test
 	public void select() {
-		weiboTestRepository.select("appranking", "o风平浪静o");
+		weiboTestRepository.select(1);
 	}
 
 	@Test
@@ -60,7 +60,7 @@ public class WeiboTestRepositoryTest extends AbstractTest {
 
 	@Test
 	public void delete() {
-		weiboTestRepository.delete("appranking", "o风平浪静o");
+		weiboTestRepository.delete(1);
 	}
 
 }

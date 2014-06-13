@@ -7,7 +7,6 @@
 
 package cn.cuizuoli.weibo.controller;
 
-
 /**
  * weibo
  * cn.cuizuoli.weibo.controller.AbstractController.java
@@ -18,11 +17,6 @@ public class AbstractController {
 	// weibo
 	protected final static String ACCESS_TOKEN = "access_token";
 	protected final static String USER_ID = "user_id";
-	// app
+	// page
 	protected final static String SIGNED_REQUEST = "signed_request";
-	// enterprise
-	protected final static String CID = "cid";
-	protected final static String VIEWER = "viewer";
-	protected final static String SUB_APPKEY = "sub_appkey";
-	protected final static String TOKEN_STRING = "tokenString";
 }

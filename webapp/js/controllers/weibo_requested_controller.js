@@ -1,48 +1,9 @@
 define('controllers/weibo_requested_controller', ['Ember'], function (Ember) {
 	return Ember.ObjectController.extend({
 		menuRequestedListClass: 'active',
-		requestBtnClass: function() {
-			var btnClass = 'btn btn-default';
-			if (this.get('status.code') == 'request') {
-				btnClass = 'btn btn-success';
-			}
-			return btnClass;
-		}.property('status.code'),
-		requestedBtnClass: function() {
-			var btnClass = 'btn btn-default';
-			if (this.get('status.code') == 'requested') {
-				btnClass = 'btn btn-success';
-			}
-			return btnClass;
-		}.property('status.code'),
-		completedBtnClass: function() {
-			var btnClass = 'btn btn-default';
-			if (this.get('status.code') == 'completed') {
-				btnClass = 'btn btn-success';
-			}
-			return btnClass;
-		}.property('status.code'),
-		verifyBtnClass: function() {
-			var btnClass = 'btn btn-default';
-			if (this.get('status.code') == 'verify') {
-				btnClass = 'btn btn-success';
-			}
-			return btnClass;
-		}.property('status.code'),
-		squareBtnClass: function() {
-			var btnClass = 'btn btn-default';
-			if (this.get('status.code') == 'square') {
-				btnClass = 'btn btn-success';
-			}
-			return btnClass;
-		}.property('status.code'),
-		releaseBtnClass: function() {
-			var btnClass = 'btn btn-default';
-			if (this.get('status.code') == 'release') {
-				btnClass = 'btn btn-success';
-			}
-			return btnClass;
-		}.property('status.code'),
+		weiboTests: function() {
+			return this.store.findQuery('weiboTest', {appId: this.get('appId')});
+		}.property('appId'),
 		actions: {
 			saveRequested: function() {
 				var _this = this;
@@ -62,6 +23,38 @@ define('controllers/weibo_requested_controller', ['Ember'], function (Ember) {
 					_this.store.unloadAll('weiboInfo');
 					_this.transitionToRoute('weibo.completedlist');
 				});
+			},
+			addWeiboTest: function() {
+				var _this = this;
+				_this.store.createRecord('weiboTest', {
+					appId: _this.get('appId'),
+					nickname: $('#nickname').val()
+				}).save().then(function(weiboTest) {
+					alert('测试帐号请求已发出，请等待后台人员处理！');
+					_this.store.findQuery('weiboTest', {appId: _this.get('appId')}).then(function(weiboTestList) {
+						_this.set('weiboTestList', weiboTestList);
+					});
+				});
+			},
+			deleteWeiboTest: function(weiboTest) {
+				var _this = this;
+				if (weiboTest.get('status.code') == 'del') {
+					alert('请等待后台人员处理！');
+				} else {
+					_this.store.push('weiboTest', {
+						id: weiboTest.id,
+						status: {code: 'del'}
+					}).save().then(function(result) {
+						if (result.get('data').appId) {
+							alert('删除测试帐号请求已发出，请等待后台人员处理！');
+						} else {
+							alert('删除测试帐号成功！');
+						}
+						_this.store.findQuery('weiboTest', {appId: _this.get('appId')}).then(function(weiboTestList) {
+							_this.set('weiboTests', weiboTestList);
+						});
+					});
+				}
 			}
 		}
 	});

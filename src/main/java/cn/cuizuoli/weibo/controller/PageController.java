@@ -1,5 +1,5 @@
 /*
- * @(#)EnterpriseController.java $version 2014年5月23日
+ * @(#)PageController.java $version 2014年6月13日
  *
  * Copyright 2014 cuizuoli.cn. All rights Reserved.
  * cuizuoli.cn PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
@@ -23,20 +23,20 @@ import cn.cuizuoli.weibo.service.WeiboService;
 
 import com.weibo.api.OAuth2;
 import com.weibo.api.Users;
-import com.weibo.model.ProfessionalTokenInfo;
+import com.weibo.model.PageTokenInfo;
 
 /**
  * weibo
- * cn.cuizuoli.weibo.controller.EnterpriseController.java
+ * cn.cuizuoli.weibo.controller.PageController.java
  * @author cuizuoli
- * @date 2014年5月23日
+ * @date 2014年6月13日
  */
 @Slf4j
 @Controller
 @RequestMapping("/page")
-public class EnterpriseController extends AbstractController {
+public class PageController extends AbstractController {
 
-	private final static String ENTERPRISE_LOGIN = "enterprise/login";
+	private final static String PAGE_LOGIN = "page/login";
 
 	@Resource
 	private WeiboService weiboService;
@@ -53,33 +53,25 @@ public class EnterpriseController extends AbstractController {
 		if (weiboInfo != null) {
 			String accessToken = request.getParameter(ACCESS_TOKEN);
 			String userId = request.getParameter(USER_ID);
+			String ouid = null;
 			if (StringUtils.isBlank(accessToken) || StringUtils.isBlank(userId)) {
-				String cid = request.getParameter(CID);//当前被访问的专业版用户uid
-				String viewer = request.getParameter(VIEWER);//当前登陆用户uid
-				String subAppkey = request.getParameter(SUB_APPKEY);//企业安装应用后的子key
-				String tokenString = request.getParameter(TOKEN_STRING);//access token，请按.分割为两部分，后一部分先base64_decode，然后json_decode
-				log.info(CID + " - " + cid);
-				log.info(VIEWER + " - " + viewer);
-				log.info(SUB_APPKEY + " - " + subAppkey);
-				log.info(TOKEN_STRING + " - " + tokenString);
-				if (StringUtils.isBlank(subAppkey)) {
-					return new ModelAndView(ENTERPRISE_LOGIN)
+				String signedRequest = request.getParameter(SIGNED_REQUEST);
+				log.info(SIGNED_REQUEST + " - " + signedRequest);
+				if (StringUtils.isBlank(signedRequest)) {
+					return new ModelAndView(PAGE_LOGIN)
 						.addObject("appKey", weiboInfo.getAppKey())
 						.addObject("redirectUri", weiboInfo.getRedirectUri())
 						.addObject("appName", weiboInfo.getAppName());
-				} else if (StringUtils.isBlank(tokenString)) {
-					return new ModelAndView(ENTERPRISE_LOGIN)
-						.addObject("appKey", subAppkey)
-						.addObject("redirectUri", weiboInfo.getRedirectUri())
-						.addObject("appName", weiboInfo.getAppName());
 				} else {
-					ProfessionalTokenInfo tokenInfo = oAuth2.parseSignedRequest(tokenString, weiboInfo.getAppSecret());
+					PageTokenInfo tokenInfo = oAuth2.parsePageSignedRequest(signedRequest, weiboInfo.getAppSecret());
 					if (tokenInfo != null) {
 						accessToken = tokenInfo.getOauthToken();
 						userId = tokenInfo.getUserId();
-					} else {
-						return new ModelAndView(ENTERPRISE_LOGIN)
-							.addObject("appKey", subAppkey)
+						ouid = tokenInfo.getOuid();
+					}
+					if (StringUtils.isEmpty(accessToken)) {
+						return new ModelAndView(PAGE_LOGIN)
+							.addObject("appKey", weiboInfo.getAppKey())
 							.addObject("redirectUri", weiboInfo.getRedirectUri())
 							.addObject("appName", weiboInfo.getAppName());
 					}
@@ -89,6 +81,7 @@ public class EnterpriseController extends AbstractController {
 				.append("redirect:").append(weiboInfo.getAppUri())
 				.append("?access_token=").append(accessToken)
 				.append("&user_id=").append(userId)
+				.append("&ouid=").append(ouid)
 				.toString();
 			return new ModelAndView(appUri);
 		} else {

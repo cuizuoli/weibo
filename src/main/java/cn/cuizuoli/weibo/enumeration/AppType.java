@@ -25,7 +25,7 @@ import cn.cuizuoli.weibo.map.ser.AppTypeJsonSerializer;
 public enum AppType {
 	APP("app", "站内应用"),
 	WEB("web", "网页应用"),
-	ENTERPRISE("page", "PAGE应用企业版");
+	PAGE("page", "PAGE应用企业版");
 	private final String code;
 	private final String name;
 

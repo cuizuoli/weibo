@@ -145,32 +145,43 @@ public class WeiboService {
 	}
 
 	/**
+	 * getWeiboTestList
+	 * @param weiboTest
+	 * @return
+	 */
+	public List<WeiboTest> getWeiboTestList(WeiboTest weiboTest) {
+		return weiboTestRepository.selectList(weiboTest);
+	}
+
+	/**
+	 * getWeiboTest
+	 * @param id
+	 * @return
+	 */
+	public WeiboTest getWeiboTest(int id) {
+		return weiboTestRepository.select(id);
+	}
+
+	/**
 	 * addWeiboTest
-	 * @param appId
-	 * @param nickname
+	 * @param weiboTest
+	 * @param user
 	 */
 	@Transactional
-	public void addWeiboTest(String appId, String nickname) {
-		WeiboTest weiboTest = weiboTestRepository.select(appId, nickname);
-		if (weiboTest == null) {
-			weiboTest = new WeiboTest();
-			weiboTest.setAppId(appId);
-			weiboTest.setNickname(nickname);
-			weiboTest.setStatus(AppTestStatus.ADD);
-			weiboTest.setCreator("");
-			weiboTest.setModifier("");
-			weiboTestRepository.insert(weiboTest);
-		}
+	public void addWeiboTest(WeiboTest weiboTest, User user) {
+		weiboTest.setStatus(AppTestStatus.ADD);
+		weiboTest.setCreator(user.getUsername());
+		weiboTest.setModifier(user.getUsername());
+		weiboTestRepository.insert(weiboTest);
 	}
 
 	/**
 	 * addedWeiboTest
-	 * @param appId
-	 * @param nickname
+	 * @param weiboTest
 	 */
 	@Transactional
-	public void addedWeiboTest(String appId, String nickname) {
-		WeiboTest weiboTest = weiboTestRepository.select(appId, nickname);
+	public void addedWeiboTest(WeiboTest weiboTest) {
+		weiboTest = weiboTestRepository.select(weiboTest.getId());
 		if (weiboTest != null) {
 			AppTestStatus appTestStatus = weiboTest.getStatus();
 			switch (appTestStatus) {
@@ -195,14 +206,14 @@ public class WeiboService {
 	 * @param nickname
 	 */
 	@Transactional
-	public void deleteWeiboTest(String appId, String nickname) {
-		WeiboTest weiboTest = weiboTestRepository.select(appId, nickname);
+	public void deleteWeiboTest(WeiboTest weiboTest) {
+		weiboTest = weiboTestRepository.select(weiboTest.getId());
 		if (weiboTest != null) {
 			AppTestStatus appTestStatus = weiboTest.getStatus();
 			if (appTestStatus != null) {
 				switch (appTestStatus) {
 					case ADD: {
-						weiboTestRepository.delete(appId, nickname);
+						weiboTestRepository.delete(weiboTest.getId());
 					}
 						break;
 					case ADDED: {
@@ -211,7 +222,7 @@ public class WeiboService {
 					}
 						break;
 					case DEL: {
-						weiboTestRepository.delete(appId, nickname);
+						weiboTestRepository.delete(weiboTest.getId());
 					}
 						break;
 				}

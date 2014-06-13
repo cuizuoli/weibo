@@ -1,12 +1,12 @@
-define('controllers/weibo_requestedlist_controller', ['Ember'], function (Ember) {
+define('controllers/admin_requestedlist_controller', ['Ember'], function (Ember) {
 	return Ember.ArrayController.extend({
 		menuRequestedListClass: 'active',
 		queryParams: ['id'],
 		id: null,
 		actions: {
-			getRequested: function(id) {
+			getRequest: function(id) {
 				var _this = this;
-				_this.transitionToRoute('weibo.requested', {
+				_this.transitionToRoute('admin.requested', {
 					queryParams: {'id': id}
 				});
 			}

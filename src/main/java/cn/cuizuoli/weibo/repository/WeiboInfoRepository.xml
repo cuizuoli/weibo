@@ -12,6 +12,15 @@
 		<result column="app_summary" property="appSummary"/>
 		<result column="app_intro" property="appIntro"/>
 		<result column="app_type" property="appType"/>
+		<result column="official_id" property="officialId"/>
+		<result column="official_password" property="officialPassword"/>
+		<result column="icon_16" property="icon16"/>
+		<result column="icon_80" property="icon80"/>
+		<result column="icon_120" property="icon120"/>
+		<result column="preview_01" property="preview01"/>
+		<result column="preview_02" property="preview02"/>
+		<result column="preview_03" property="preview03"/>
+		<result column="preview_04" property="preview04"/>
 		<result column="status" property="status"/>
 		<result column="creator" property="creator"/>
 		<result column="modifier" property="modifier"/>
@@ -30,6 +39,15 @@
 			app_summary,
 			app_intro,
 			app_type,
+			official_id,
+			official_password,
+			icon_16,
+			icon_80,
+			icon_120,
+			preview_01,
+			preview_02,
+			preview_03,
+			preview_04,
 			status,
 			creator,
 			modifier,
@@ -46,6 +64,11 @@
 			<if test="creator != null and creator != ''">
 			AND creator = #{creator}
 			</if>
+			<if test="statusCodeList != null">
+			<foreach collection="statusCodeList" item="statusCode" open="AND status IN(" close=")" separator=",">
+				#{statusCode}
+			</foreach>
+			</if>
 		</where>
 	</select>
 	<select id="select" resultMap="WeiboInfoMap">
@@ -60,6 +83,15 @@
 			app_summary,
 			app_intro,
 			app_type,
+			official_id,
+			official_password,
+			icon_16,
+			icon_80,
+			icon_120,
+			preview_01,
+			preview_02,
+			preview_03,
+			preview_04,
 			status,
 			creator,
 			modifier,
@@ -139,6 +171,33 @@
 			</if>
 			<if test="appType != null and appType != ''">
 			app_type = #{appType},
+			</if>
+			<if test="officialId != null and officialId != ''">
+			official_id = #{officialId},
+			</if>
+			<if test="officialPassword != null and officialPassword != ''">
+			official_password = #{officialPassword},
+			</if>
+			<if test="icon16 != null and icon16 != ''">
+			icon_16 = #{icon16},
+			</if>
+			<if test="icon80 != null and icon80 != ''">
+			icon_80 = #{icon80},
+			</if>
+			<if test="icon120 != null and icon120 != ''">
+			icon_120 = #{icon120},
+			</if>
+			<if test="preview01 != null and preview01 != ''">
+			preview_01 = #{preview01},
+			</if>
+			<if test="preview02 != null and preview02 != ''">
+			preview_02 = #{preview02},
+			</if>
+			<if test="preview03 != null and preview03 != ''">
+			preview_03 = #{preview03},
+			</if>
+			<if test="preview04 != null and preview04 != ''">
+			preview_04 = #{preview04},
 			</if>
 			<if test="status != null and status != ''">
 			status = #{status},

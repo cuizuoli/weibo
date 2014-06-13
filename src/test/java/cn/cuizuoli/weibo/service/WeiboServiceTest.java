@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.User;
 
 import cn.cuizuoli.weibo.enumeration.AppStatus;
 import cn.cuizuoli.weibo.model.WeiboInfo;
+import cn.cuizuoli.weibo.model.WeiboTest;
 import cn.cuizuoli.weibo.test.AbstractTest;
 
 /**
@@ -72,17 +73,28 @@ public class WeiboServiceTest extends AbstractTest {
 
 	@Test
 	public void addWeiboTest() {
-		weiboService.addedWeiboTest("appranking", "测试");
+		WeiboTest weiboTest = new WeiboTest();
+		weiboTest.setAppId("appranking");
+		weiboTest.setNickname("测试");
+		weiboService.addedWeiboTest(weiboTest);
 	}
 
 	@Test
 	public void addedWeiboTest() {
-		weiboService.addedWeiboTest("appranking", "测试");
+		WeiboTest weiboTest = new WeiboTest();
+		weiboTest.setId(1);
+		weiboTest.setAppId("appranking");
+		weiboTest.setNickname("测试");
+		weiboService.addedWeiboTest(weiboTest);
 	}
 
 	@Test
 	public void deleteWeiboTest() {
-		weiboService.deleteWeiboTest("appranking", "测试");
+		WeiboTest weiboTest = new WeiboTest();
+		weiboTest.setId(1);
+		weiboTest.setAppId("appranking");
+		weiboTest.setNickname("测试");
+		weiboService.deleteWeiboTest(weiboTest);
 	}
 
 }
