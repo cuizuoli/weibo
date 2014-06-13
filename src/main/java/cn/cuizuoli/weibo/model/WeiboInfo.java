@@ -33,6 +33,7 @@ public class WeiboInfo {
 	private String appSecret;
 	private String redirectUri;
 	private String appUri;
+	private String appAccessUri;
 	private String appName;
 	private String appSummary;
 	private String appIntro;

@@ -5,6 +5,7 @@ define('models/weibo_info', ['DS'], function (DS) {
 		appKey: attr(),
 		appSecret: attr(),
 		redirectUri: attr(),
+		appAccessUri: attr(),
 		appUri: attr(),
 		appName: attr(),
 		appSummary: attr(),

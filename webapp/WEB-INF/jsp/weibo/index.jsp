@@ -203,6 +203,12 @@
 		</div>
 	</div>
 	<div class="form-group">
+		<label class="col-sm-2 control-label">应用访问地址</label>
+		<div class="col-sm-6">
+			<p class="form-control-static"><a {{bind-attr href="appAccessUri"}} target="_blank"><img src="/images/weibo/login_24x24.png"></a></p>
+		</div>
+	</div>
+	<div class="form-group">
 		<label class="col-sm-2 control-label" for="appName">应用名称</label>
 		<div class="col-sm-3">
 			{{input class="form-control input-sm" id="appName" type="text" placeholder="请输入应用名称..." value=appName}}

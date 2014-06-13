@@ -7,6 +7,7 @@
 		<result column="app_key" property="appKey"/>
 		<result column="app_secret" property="appSecret"/>
 		<result column="redirect_uri" property="redirectUri"/>
+		<result column="app_access_uri" property="appAccessUri"/>
 		<result column="app_uri" property="appUri"/>
 		<result column="app_name" property="appName"/>
 		<result column="app_summary" property="appSummary"/>
@@ -34,6 +35,7 @@
 			app_key,
 			app_secret,
 			redirect_uri,
+			app_access_uri,
 			app_uri,
 			app_name,
 			app_summary,
@@ -78,6 +80,7 @@
 			app_key,
 			app_secret,
 			redirect_uri,
+			app_access_uri,
 			app_uri,
 			app_name,
 			app_summary,
@@ -156,6 +159,9 @@
 			</if>
 			<if test="redirectUri != null and redirectUri != ''">
 			redirect_uri = #{redirectUri},
+			</if>
+			<if test="appAccessUri != null and appAccessUri != ''">
+			app_access_uri = #{appAccessUri},
 			</if>
 			<if test="appUri != null and appUri != ''">
 			app_uri = #{appUri},

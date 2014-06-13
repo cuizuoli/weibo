@@ -123,6 +123,13 @@
 		</div>
 	</div>
 	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appAccessUri">应用访问地址</label>
+		<div class="col-sm-6">
+			{{input class="form-control input-sm" id="appAccessUri" type="text" placeholder="请输入应用访问地址..." value=appAccessUri}}
+			<span class="help-block">不超过200个字母</span>
+		</div>
+	</div>
+	<div class="form-group">
 		<label class="col-sm-2 control-label" for="appUri">应用实际地址</label>
 		<div class="col-sm-6">
 			<p class="form-control-static">{{appUri}}</p>
@@ -226,6 +233,13 @@
 		<div class="col-sm-6">
 			{{input class="form-control input-sm" id="redirectUri" type="text" placeholder="请输入Redirect URI..." value=redirectUri}}
 			<span class="help-block">不超过100个字母</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="appAccessUri">应用访问地址</label>
+		<div class="col-sm-6">
+			{{input class="form-control input-sm" id="appAccessUri" type="text" placeholder="请输入应用访问地址..." value=appAccessUri}}
+			<span class="help-block">不超过200个字母</span>
 		</div>
 	</div>
 	<div class="form-group">
@@ -431,55 +445,61 @@
 <script type="text/x-handlebars" data-template-name="admin/release">
 <form class="form-horizontal" role="form">
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="appId">应用ID</label>
+		<label class="col-sm-2 control-label">应用ID</label>
 		<div class="col-sm-3">
 			<p class="form-control-static">{{appId}}</p>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="appType">应用类型</label>
+		<label class="col-sm-2 control-label">应用类型</label>
 		<div class="col-sm-10">
 			<p class="form-control-static">{{appType.name}}</p>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="appUri">App Key</label>
+		<label class="col-sm-2 control-label">App Key</label>
 		<div class="col-sm-2">
 			<p class="form-control-static">{{appKey}}</p>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="appUri">App Secret</label>
+		<label class="col-sm-2 control-label">App Secret</label>
 		<div class="col-sm-3">
 			<p class="form-control-static">{{appSecret}}</p>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="appUri">Redirect URI</label>
+		<label class="col-sm-2 control-label">Redirect URI</label>
 		<div class="col-sm-6">
 			<p class="form-control-static">{{redirectUri}}</p>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="appUri">应用实际地址</label>
+		<label class="col-sm-2 control-label">应用访问地址</label>
+		<div class="col-sm-6">
+			<p class="form-control-static">{{appAccessUri}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">应用实际地址</label>
 		<div class="col-sm-6">
 			<p class="form-control-static">{{appUri}}</p>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="appName">应用名称</label>
+		<label class="col-sm-2 control-label">应用名称</label>
 		<div class="col-sm-3">
 			<p class="form-control-static">{{appName}}</p>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="appSummary">应用简介</label>
+		<label class="col-sm-2 control-label">应用简介</label>
 		<div class="col-sm-6">
 			<p class="form-control-static">{{appSummary}}</p>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="appIntro">应用介绍</label>
+		<label class="col-sm-2 control-label">应用介绍</label>
 		<div class="col-sm-6">
 			<pre>{{appIntro}}</pre>
 		</div>
