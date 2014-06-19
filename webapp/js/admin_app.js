@@ -21,8 +21,8 @@ requirejs.config({
 		// lib
 		jQuery: 'lib/jquery-1.11.1.min',
 		Handlebars: 'lib/handlebars-v1.3.0',
-		Ember: 'lib/ember',
-		DS: 'lib/ember-data',
+		Ember: 'lib/ember.min',
+		DS: 'lib/ember-data.min',
 		Bootstrap: 'lib/bootstrap.min',
 		// App
 		AdminApp: 'admin_app'
