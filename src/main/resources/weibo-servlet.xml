@@ -18,6 +18,10 @@
 	</context:component-scan>
 	<tx:annotation-driven/>
 
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="10"/>
+	</bean>
+
 	<!-- Configures the @Controller programming model -->
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>

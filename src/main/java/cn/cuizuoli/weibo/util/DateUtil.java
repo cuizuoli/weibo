@@ -22,6 +22,9 @@ import org.joda.time.format.DateTimeFormatter;
 public class DateUtil {
 
 	public final static DateTimeFormatter DATETIME_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+	public final static DateTimeFormatter HOUR_FORMATTER = DateTimeFormat.forPattern("yyyyMMddHH");
+	public final static DateTimeFormatter DAY_FORMATTER = DateTimeFormat.forPattern("yyyyMMdd");
+	public final static DateTimeFormatter MONTH_FORMATTER = DateTimeFormat.forPattern("yyyyMM");
 
 	/**
 	 * toDatetime
@@ -30,6 +33,60 @@ public class DateUtil {
 	 */
 	public static String toDatetime(Date date) {
 		return new DateTime(date.getTime()).toString(DATETIME_FORMATTER);
+	}
+
+	/**
+	 * fromHour
+	 * @param hour
+	 * @return
+	 */
+	public static DateTime fromHour(String hour) {
+		return HOUR_FORMATTER.parseDateTime(hour);
+	}
+
+	/**
+	 * fromDay
+	 * @param day
+	 * @return
+	 */
+	public static DateTime fromDay(String day) {
+		return DAY_FORMATTER.parseDateTime(day);
+	}
+
+	/**
+	 * fromMonth
+	 * @param month
+	 * @return
+	 */
+	public static DateTime fromMonth(String month) {
+		return MONTH_FORMATTER.parseDateTime(month);
+	}
+
+	/**
+	 * toHour
+	 * @param datetime
+	 * @return
+	 */
+	public static String toHour(DateTime datetime) {
+		return datetime.toString(HOUR_FORMATTER);
+	}
+
+	/**
+	 * toDay
+	 * @param datetime
+	 * @return
+	 */
+	public static String toDay(DateTime datetime) {
+		return datetime.toString(DAY_FORMATTER);
+	}
+
+	/**
+	 * toMonth
+	 * @param datetime
+	 * @return
+	 */
+	public static String toMonth(DateTime datetime) {
+		return datetime.toString(MONTH_FORMATTER);
 	}
 
 }
