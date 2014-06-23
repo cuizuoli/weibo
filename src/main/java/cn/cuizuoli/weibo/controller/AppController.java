@@ -60,7 +60,7 @@ public class AppController extends AbstractController {
 					return new ModelAndView(APP_LOGIN)
 						.addObject("appKey", weiboInfo.getAppKey())
 						.addObject("redirectUri", weiboInfo.getRedirectUri())
-						.addObject("appName", weiboInfo.getAppName());
+						.addObject("weiboInfo", weiboInfo);
 				} else {
 					PageTokenInfo tokenInfo = oAuth2.parsePageSignedRequest(signedRequest, weiboInfo.getAppSecret());
 					if (tokenInfo != null) {
@@ -71,7 +71,7 @@ public class AppController extends AbstractController {
 						return new ModelAndView(APP_LOGIN)
 							.addObject("appKey", weiboInfo.getAppKey())
 							.addObject("redirectUri", weiboInfo.getRedirectUri())
-							.addObject("appName", weiboInfo.getAppName());
+							.addObject("weiboInfo", weiboInfo);
 					}
 				}
 			}
