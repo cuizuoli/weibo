@@ -11,8 +11,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,7 +33,6 @@ import cn.cuizuoli.weibo.service.WeiboService;
  * @author cuizuoli
  * @date 2014年5月29日
  */
-@Slf4j
 @Controller
 @RequestMapping("/weibo/api")
 public class WeiboApiController extends AbstractController {

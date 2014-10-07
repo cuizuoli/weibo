@@ -10,10 +10,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<webapp.context>/</webapp.context>
-		<org.springframework.version>4.0.3.RELEASE</org.springframework.version>
+		<org.springframework.version>4.0.6.RELEASE</org.springframework.version>
 		<org.springframework.security.version>3.2.4.RELEASE</org.springframework.security.version>
-		<org.springframework.integration.version>3.0.1.RELEASE</org.springframework.integration.version>
-		<org.springframework.social.version>1.0.3.RELEASE</org.springframework.social.version>
+		<org.springframework.social.version>1.1.0.RELEASE</org.springframework.social.version>
 	</properties>
 	<profiles>
 		<profile>
@@ -27,7 +26,7 @@
 			<properties>
 				<deploy.phase>dev</deploy.phase>
 				<maven.test.skip>true</maven.test.skip>
-				<jdk.version>1.6</jdk.version>
+				<jdk.version>1.7</jdk.version>
 			</properties>
 		</profile>
 		<profile>
@@ -42,14 +41,13 @@
 			<properties>
 				<deploy.phase>release</deploy.phase>
 				<maven.test.skip>true</maven.test.skip>
-				<jdk.version>1.6</jdk.version>
+				<jdk.version>1.7</jdk.version>
 			</properties>
 		</profile>
 	</profiles>
 	<build>
 		<filters>
-			<filter>src/main/filters/database-${deploy.phase}.properties</filter>
-			<filter>src/main/filters/application-${deploy.phase}.properties</filter>
+			<filter>src/main/resources-${deploy.phase}/database.properties</filter>
 		</filters>
 		<finalName>${project.artifactId}</finalName>
 		<resources>
@@ -63,6 +61,17 @@
 			<resource>
 				<filtering>true</filtering>
 				<directory>src/main/resources/</directory>
+				<includes>
+					<include>robots.txt</include>
+					<include>*.xml</include>
+					<include>**/*.xml</include>
+					<include>*.properties</include>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources-${deploy.phase}</directory>
 				<includes>
 					<include>robots.txt</include>
 					<include>*.xml</include>
@@ -86,58 +95,48 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
-					<encoding>${source.encoding}</encoding>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.4</version>
 				<configuration>
-					<webxml>webapp/WEB-INF/web.xml</webxml>
 					<warSourceDirectory>webapp</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.17</version>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-				<version>6.1.26</version>
-				<configuration>
-					<webAppSourceDirectory>webapp</webAppSourceDirectory>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<connectors>
-						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>80</port>
-							<maxIdleTime>60000</maxIdleTime>
-						</connector>
-					</connectors>
-					<!-- 
-					<requestLog implementation="org.mortbay.jetty.NCSARequestLog">
-						<filename>logs/yyyy_mm_dd.request.log</filename>
-						<retainDays>90</retainDays>
-						<append>true</append>
-						<extended>false</extended>
-						<logTimeZone>GMT</logTimeZone>
-					</requestLog>
-					 -->
-					<webAppConfig>
-						<contextPath>${webapp.context}</contextPath>
-					</webAppConfig>
-				</configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -146,7 +145,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.30</version>
+			<version>5.1.31</version>
 		</dependency>
 		<!-- org.springframework -->
 		<dependency>
@@ -180,11 +179,21 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>${org.springframework.security.version}</version>
 		</dependency>
-		<!-- org.springframework.mobile -->
+		<!-- org.springframework.social -->
 		<dependency>
-			<groupId>org.springframework.mobile</groupId>
-			<artifactId>spring-mobile-device</artifactId>
-			<version>1.1.1.RELEASE</version>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-web</artifactId>
+			<version>${org.springframework.social.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-config</artifactId>
+			<version>${org.springframework.social.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-weibo</artifactId>
+			<version>${org.springframework.social.version}</version>
 		</dependency>
 		<!-- junit -->
 		<dependency>
@@ -245,6 +254,12 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
+		<!-- com.fasterxml.jackson.core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.4.1.3</version>
+		</dependency>
 		<!-- joda-time -->
 		<dependency>
 			<groupId>joda-time</groupId>
@@ -255,13 +270,13 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.12.6</version>
+			<version>1.14.4</version>
 		</dependency>
 		<!-- javax.servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

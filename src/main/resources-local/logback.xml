@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+	<property name="CATALINA_HOME" value="." />
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d [%-5p] %c{50} - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE-WEBAPP" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${CATALINA_HOME}/logs/weibo-webapp.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${CATALINA_HOME}/logs/weibo-webapp.%i</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>3</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>%d [%-5p] [%t] %c{50} - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE-MYBATIS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${CATALINA_HOME}/logs/weibo-mybatis.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${CATALINA_HOME}/logs/weibo-mybatis.%i</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>3</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>%d [%-5p] [%t] %c{50} - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE-ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${CATALINA_HOME}/logs/weibo-error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${CATALINA_HOME}/logs/weibo-error.%i</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>3</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>%d [%-5p] [%t] %c{50} - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.springframework" level="INFO" additivity="false">
+		<appender-ref ref="FILE-WEBAPP"/>
+		<appender-ref ref="FILE-ERROR"/>
+	</logger>
+	<logger name="org.springframework.security" level="INFO" additivity="false">
+		<appender-ref ref="FILE-WEBAPP"/>
+		<appender-ref ref="FILE-ERROR"/>
+	</logger>
+	<logger name="org.apache.ibatis" level="INFO" additivity="false">
+		<appender-ref ref="FILE-MYBATIS"/>
+		<appender-ref ref="FILE-ERROR"/>
+	</logger>
+	<logger name="org.mybatis.spring" level="INFO" additivity="false">
+		<appender-ref ref="FILE-MYBATIS"/>
+		<appender-ref ref="FILE-ERROR"/>
+	</logger>
+	<logger name="cn.cuizuoli.weibo" level="INFO" additivity="false">
+		<appender-ref ref="FILE-WEBAPP"/>
+	</logger>
+	<logger name="cn.cuizuoli.weibo.repository" level="DEBUG" additivity="false">
+		<appender-ref ref="FILE-MYBATIS"/>
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="CONSOLE"/>
+	</root>
+
+</configuration>
